@@ -14,6 +14,11 @@ class ApiController extends Controller
         $this->request = $request;
     }
 
+    public function index()
+    {
+        // TODO
+    }
+
     public function show()
     {
         // TODO
@@ -29,5 +34,8 @@ class ApiController extends Controller
         // TODO
     }
 
-    private function validate
+    private function validate()
+    {
+        
+    }
 }
