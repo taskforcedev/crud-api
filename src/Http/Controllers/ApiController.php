@@ -7,37 +7,36 @@ use Taskforcedev\CrudAPI\Models\CrudModel;
 
 class ApiController extends Controller
 {
-    private $request;
-    private $model;
-    private $fq_model;
+    private $namespace;
 
-    public function __construct(Request $request)
+    public function __construct()
     {
-        $this->request = $request;
-        $valid = $this->validateModel();
-
-        if (!$valid) {
-            return response("Required field model was not passed.", 400);
-        }
-
-        $namespace = $this->getModelNamespace();
-
-        if (!isset($namespace)) {
-            return response("Namespace is invalid.", 400);
-        }
-
-        /* Attempt to resolve the Model */
-        $this->fq_model = $namespace . '\\' . $this->request->input('model');
+        $this->namespace = $this->getModelNamespace();
     }
 
-    public function index()
+    public function index($model)
     {
+        $model = $this->qualify($model);
+        
+        try {
+            $results = (new $model)->all();
+            return $results;
+        } catch (Exception $e) {
+            return response($e->getMessage, 500);
+        }
+
+        
+
         // TODO
+		//var_dump($this->fq_model);
+        //$model = new $this->fq_model;
+        //var_dump($model->newQuery()->where('id', 1)->firstOrFail());
     }
 
-    public function show()
+    public function show($model, $id)
     {
-        // TODO
+        $model = $this->qualify($model);
+        var_dump($model);
     }
 
     public function store()
@@ -50,11 +49,8 @@ class ApiController extends Controller
         // TODO
     }
 
-    /**
-     * Validates that the request has the model field populated
-     */
-    private function validateModel()
+    public function qualify($model)
     {
-        return $this->request->has('model');
+        return $this->namespace . '\\' . $model;
     }
 }

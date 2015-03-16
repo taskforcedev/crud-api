@@ -10,11 +10,8 @@ abstract class Controller extends BaseController
 {
     use DispatchesCommands, ValidatesRequests;
 
-    protected function determineNamespace()
+    protected function getModelNamespace()
     {
-        $vendorFolder = __DIR__ . '../../../../../';
-        $appFolder = $vendorFolder . '../app';
-        $namespace_check = $appFolder . '/Http/Controllers/Controller.php';
-        return file_exists($namespace_check);
+        return config('crudapi.model_ns');
     }
 }

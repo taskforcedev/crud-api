@@ -17,6 +17,9 @@ class CrudApi extends ServiceProvider
     
     public function register()
     {
+		$this->mergeConfigFrom(
+    		__DIR__.'/../config/crudapi.php', 'crudapi'
+		);
     }
 
     protected function config()
