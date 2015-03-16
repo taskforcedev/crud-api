@@ -1,0 +1,21 @@
+{
+    "name": "taskforcedev/crud-api",
+    "description": "A laravel package providing routes, controller and views for user login/register, etc.",
+    "authors": [
+        {
+            "name": "taskforcedev",
+            "email": "taskforce2eu@gmail.com"
+        }
+    ],
+    "keywords": ["user", "routes", "views", "laravel", "login"],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "5.0.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Taskforcedev\\CrudAPI\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
