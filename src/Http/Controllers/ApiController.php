@@ -34,8 +34,11 @@ class ApiController extends Controller
         // TODO
     }
 
-    private function validate()
+    /**
+     * Validates that the request has the model field populated
+     */
+    private function validateModel()
     {
-        
+        return $this->request->has('model');
     }
 }
