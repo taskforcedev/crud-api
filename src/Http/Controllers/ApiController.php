@@ -9,6 +9,7 @@ class ApiController extends Controller
 {
     private $request;
     private $model;
+    private $fq_model;
 
     public function __construct(Request $request)
     {
@@ -16,17 +17,22 @@ class ApiController extends Controller
         $valid = $this->validateModel();
 
         if (!$valid) {
-            return response("Required field model was not passed", 400);
+            return response("Required field model was not passed.", 400);
+        }
+
+        $namespace = $this->getModelNamespace();
+
+        if (!isset($namespace)) {
+            return response("Namespace is invalid.", 400);
         }
 
         /* Attempt to resolve the Model */
+        $this->fq_model = $namespace . '\\' . $this->request->input('model');
     }
 
     public function index()
     {
         // TODO
-        $test = $this->determineNamespace();
-        var_dump($test);
     }
 
     public function show()
