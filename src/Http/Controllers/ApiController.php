@@ -3,15 +3,23 @@
 namespace Taskforcedev\CrudAPI\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Taskforcedev\CrudAPI\Models\CrudApiModel;
+use Taskforcedev\CrudAPI\Models\CrudModel;
 
 class ApiController extends Controller
 {
     private $request;
+    private $model;
 
     public function __construct(Request $request)
     {
         $this->request = $request;
+        $valid = $this->validateModel();
+
+        if (!$valid) {
+            return response("Required field model was not passed", 400);
+        }
+
+        /* Attempt to resolve the Model */
     }
 
     public function index()
