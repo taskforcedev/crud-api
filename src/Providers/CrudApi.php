@@ -11,6 +11,10 @@ class CrudApi extends ServiceProvider
         /* Load our routes */
         $this->loadRoutes();
     }
+    
+    public function register()
+    {
+    }
 
     protected function loadRoutes()
     {
