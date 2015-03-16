@@ -2,10 +2,18 @@
 
 namespace Taskforcedev\CrudAPI\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Taskforcedev\CrudAPI\Models\CrudApiModel;
 
-class ApiController
+class ApiController extends Controller
 {
+    private $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
     public function show()
     {
         // TODO
@@ -20,4 +28,6 @@ class ApiController
     {
         // TODO
     }
+
+    private function validate
 }

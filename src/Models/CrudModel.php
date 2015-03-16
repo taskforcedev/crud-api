@@ -2,9 +2,9 @@
 
 namespace Taskforcedev\CrudAPI\Models;
 
-use Illuminate\Database\Eloquent\Model
+use Illuminate\Database\Eloquent\Model;
 
-abstract class CrudApiModel extends Model
+abstract class CrudModel extends Model
 {
     /**
      * Model must provide class to validate incomming data
