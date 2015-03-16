@@ -25,6 +25,8 @@ class ApiController extends Controller
     public function index()
     {
         // TODO
+        $test = $this->determineNamespace();
+        var_dump($test);
     }
 
     public function show()

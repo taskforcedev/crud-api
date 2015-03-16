@@ -9,4 +9,12 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 abstract class Controller extends BaseController
 {
     use DispatchesCommands, ValidatesRequests;
+
+    protected function determineNamespace()
+    {
+        $vendorFolder = __DIR__ . '../../../../../';
+        $appFolder = $vendorFolder . '../app';
+        $namespace_check = $appFolder . '/Http/Controllers/Controller.php';
+        return file_exists($namespace_check);
+    }
 }

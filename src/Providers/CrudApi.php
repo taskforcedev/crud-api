@@ -10,10 +10,20 @@ class CrudApi extends ServiceProvider
     {
         /* Load our routes */
         $this->loadRoutes();
+
+        /* Register config file */
+        $this->config();
     }
     
     public function register()
     {
+    }
+
+    protected function config()
+    {
+        $this->publishes([
+            __DIR__.'/../config/crudapi.php' => config_path('crudapi.php'),
+        ]);
     }
 
     protected function loadRoutes()
