@@ -16,41 +16,45 @@ class ApiController extends Controller
 
     public function index($model)
     {
-        $model = $this->qualify($model);
+        $model = $this->getModel($model);
         
         try {
-            $results = (new $model)->all();
+            $results = $model->all();
             return $results;
         } catch (Exception $e) {
             return response($e->getMessage, 500);
         }
-
-        
-
-        // TODO
-		//var_dump($this->fq_model);
-        //$model = new $this->fq_model;
-        //var_dump($model->newQuery()->where('id', 1)->firstOrFail());
     }
 
     public function show($model, $id)
     {
-        $model = $this->qualify($model);
-        var_dump($model);
+        $model = $this->getModel($model);
+        try {
+            $model->where('id', $id)->firstOrFail();
+        } catch (Exception $e) {
+            return response('Not Found.', 404);
+        }
     }
 
-    public function store()
+    public function store($model)
     {
         // TODO
+        $model = $this->getModel($model);
     }
 
-    public function create()
+    public function create($model)
     {
-        // TODO
+        $model = $this->getModel($model);
     }
 
-    public function qualify($model)
+    private function qualify($model)
     {
         return $this->namespace . '\\' . $model;
+    }
+
+    private function getModel($model)
+    {
+        $model = $this->qualify($model);
+        return new $model;
     }
 }
