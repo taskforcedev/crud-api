@@ -3,6 +3,7 @@
 namespace Taskforcedev\CrudAPI\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Validator;
 
 abstract class CrudModel extends Model
 {

@@ -36,24 +36,29 @@ class ApiController extends Controller
         }
     }
 
-    public function store($model)
+    public function store($model, Request $request)
     {
         // TODO
         $model = $this->getModel($model);
+
+        $data = $request->all();
 
         /* Validate Model data */
         if (!method_exists($model, 'validate')) {
             return response('Unable to validate model data', 400);
         }
 
-        $data = Request::all();
-
         /* Ensure data is valid */
         $valid = $model->validate($data);
         if (!$valid) { return response('Model data is invalid', 400); }
 
+        /* Sanitize passwords */
+        if (array_key_exists('password', $data)) {
+            $data['password'] = \Hash::make($data['password']);
+        }
+
         /* Create the item */
-        $model->create($data);
+        $created = $model::create($data);
     }
 
     public function create($model)
