@@ -6,6 +6,11 @@ use Exception;
 use Illuminate\Http\Request;
 use Taskforcedev\CrudAPI\Models\CrudModel;
 
+/**
+ * Class ApiController
+ *
+ * @package Taskforcedev\CrudAPI\Http\Controllers
+ */
 class ApiController extends Controller
 {
     private $namespace;
@@ -15,6 +20,13 @@ class ApiController extends Controller
         $this->namespace = $this->getModelNamespace();
     }
 
+    /**
+     * Return all items for a given model.
+     *
+     * @param string $model The model to query.
+     *
+     * @return mixed
+     */
     public function index($model)
     {
         $model = $this->getModel($model);
@@ -27,6 +39,14 @@ class ApiController extends Controller
         }
     }
 
+    /**
+     * Show an individual model item by id.
+     *
+     * @param string  $model The model to query.
+     * @param integer $id    Item Id.
+     *
+     * @return mixed
+     */
     public function show($model, $id)
     {
         $model = $this->getModel($model);
@@ -65,11 +85,6 @@ class ApiController extends Controller
 
         /* Create the item */
         return $model::create($data);
-    }
-
-    public function create($model)
-    {
-        $model = $this->getModel($model);
     }
 
     /**
