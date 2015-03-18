@@ -63,6 +63,12 @@ class CrudApi extends ServiceProvider
      */
     protected function loadViews()
     {
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'tfcrudapi');
+        $view_path = __DIR__.'/../../resources/views';
+
+        $this->loadViewsFrom($view_path, 'crudapi');
+
+        $this->publishes([
+            $view_path => base_path('resources/views/Taskforcedev/crudapi'),
+        ]);
     }
 }
