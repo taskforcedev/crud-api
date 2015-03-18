@@ -19,7 +19,8 @@ class AdminController extends Controller
     {
         $model = $this->getModel($model);
         $data = $model->all();
-
-        var_dump($data);
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
     }
 }
