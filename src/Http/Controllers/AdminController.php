@@ -20,6 +20,6 @@ class AdminController extends Controller
         $model = $this->getModel($model);
         $data = $model->all();
 
-        return view('crud-api::admin.index', $data);
+        return view('tfcrudapi::admin.index', $data);
     }
 }

@@ -20,6 +20,9 @@ class CrudApi extends ServiceProvider
         /* Load our routes */
         $this->loadRoutes();
 
+        /* Load views */
+        $this->loadViews();
+
         /* Register config file */
         $this->config();
     }
@@ -60,6 +63,6 @@ class CrudApi extends ServiceProvider
      */
     protected function loadViews()
     {
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'crud-api');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'tfcrudapi');
     }
 }
