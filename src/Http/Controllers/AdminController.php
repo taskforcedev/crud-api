@@ -22,5 +22,7 @@ class AdminController extends Controller
         echo '<pre>';
         print_r($data);
         echo '</pre>';
+
+        return view('crud-api::admin.index');
     }
 }

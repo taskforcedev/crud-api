@@ -54,4 +54,12 @@ class CrudApi extends ServiceProvider
             include __DIR__.'/../Http/routes.php';
         }
     }
+
+    /**
+     * Load the packages views.
+     */
+    protected function loadViews()
+    {
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'crud-api');
+    }
 }
