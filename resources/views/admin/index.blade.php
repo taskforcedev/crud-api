@@ -1,4 +1,4 @@
-@extends('crud-api::layouts.master')
+@extends('crudapi::layouts.master')
 
 @section('content')
     <h1>{{ $model }}</h1>
