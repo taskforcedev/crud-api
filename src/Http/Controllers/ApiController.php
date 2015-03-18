@@ -40,6 +40,20 @@ class ApiController extends Controller
     {
         // TODO
         $model = $this->getModel($model);
+
+        /* Validate Model data */
+        if (!method_exists($model, 'validate')) {
+            return response('Unable to validate model data', 400);
+        }
+
+        $data = Request::all();
+
+        /* Ensure data is valid */
+        $valid = $model->validate($data);
+        if (!$valid) { return response('Model data is invalid', 400); }
+
+        /* Create the item */
+        $model->create($data);
     }
 
     public function create($model)
