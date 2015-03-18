@@ -7,5 +7,3 @@ php:
 install:
   - composer install
   - composer dumpautoload
-
-script: phpunit --coverage-text
