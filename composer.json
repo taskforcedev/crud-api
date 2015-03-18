@@ -7,7 +7,7 @@
             "email": "taskforce2eu@gmail.com"
         }
     ],
-    "licence": "MIT",
+    "license": "MIT",
     "keywords": ["user", "routes", "views", "laravel", "login"],
     "require": {
         "php": ">=5.4.0",
