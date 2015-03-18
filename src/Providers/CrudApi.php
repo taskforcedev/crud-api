@@ -4,8 +4,17 @@ namespace Taskforcedev\CrudAPI\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class CrudApi
+ *
+ * @package Taskforcedev\CrudAPI\Providers
+ */
 class CrudApi extends ServiceProvider
 {
+    /**
+     * Boot method.
+     * Loads routes and configuration.
+     */
     public function boot()
     {
         /* Load our routes */
@@ -14,7 +23,10 @@ class CrudApi extends ServiceProvider
         /* Register config file */
         $this->config();
     }
-    
+
+    /**
+     * Registers the configuration.
+     */
     public function register()
     {
         $this->mergeConfigFrom(
@@ -22,6 +34,9 @@ class CrudApi extends ServiceProvider
         );
     }
 
+    /**
+     * Allows configuration to be publishable, this allows user to override values without editing package.
+     */
     protected function config()
     {
         $this->publishes([
@@ -29,6 +44,9 @@ class CrudApi extends ServiceProvider
         ]);
     }
 
+    /**
+     * Load the package routes (if the file exists).
+     */
     protected function loadRoutes()
     {
         $routes_path = __DIR__.'/../Http/routes.php';
