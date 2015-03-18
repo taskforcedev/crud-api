@@ -37,9 +37,14 @@ class ApiController extends Controller
         }
     }
 
+    /**
+     * Stores an entry in the database after validation and hashing.
+     * @param  string  $model   Model to store.
+     * @param  Request $request Request instance.
+     * @return Object           Returns the json of the created object (if successful).
+     */
     public function store($model, Request $request)
     {
-        // TODO
         $model = $this->getModel($model);
 
         $data = $request->all();
@@ -59,7 +64,7 @@ class ApiController extends Controller
         }
 
         /* Create the item */
-        $created = $model::create($data);
+        return $model::create($data);
     }
 
     public function create($model)
