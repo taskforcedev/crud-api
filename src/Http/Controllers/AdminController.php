@@ -17,8 +17,11 @@ class AdminController extends Controller
      */
     public function index($model)
     {
-        $model = $this->getModel($model);
-        $data = $model->all();
+        $class = $this->getModel($model);
+        $data = [
+            'items' => $class->all(),
+            'model' => $model
+        ];
 
         return view('crudapi::admin.index', $data);
     }
