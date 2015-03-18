@@ -23,7 +23,7 @@ class ApiController extends Controller
             $results = $model->all();
             return $results;
         } catch (Exception $e) {
-            return response($e->getMessage, 500);
+            return response($e->getMessage(), 500);
         }
     }
 
