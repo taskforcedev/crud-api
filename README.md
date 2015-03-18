@@ -39,7 +39,7 @@ To match your namespace eg
 Trailing slashes will automatically be added so please leave them out.
 
 ## Usage ##
-The package is built around two controllers, one for Api and one for Admin crud operations.
+The package is built around two controllers, one for Api and one for Admin CRUD operations.
 
 ### Models ###
 In order to use this package you will need to add a validate($data) method to your models, here is an example of the User model which comes by default with laravel with an implementation of validate.
@@ -87,18 +87,16 @@ In order to use this package you will need to add a validate($data) method to yo
         }
     }
 
-
-
 ### API ###
 The Api controller has access to the following routes.
 
-    GET: /api/{Model}
-    GET: /api/{Model}/{id}
+    GET:  /api/{Model}
+    GET:  /api/{Model}/{id}
     POST: /api/{Model}/{id}
 
 ### Admin ###
 The admin controller has access to the following routes.
 
-    GET: /admin/crud/{Model}
-    GET: /admin/crud/{Model}/{id}
+    GET:  /admin/crud/{Model}
+    GET:  /admin/crud/{Model}/{id}
     POST: /admin/crud/{Model}
