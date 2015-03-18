@@ -19,10 +19,7 @@ class AdminController extends Controller
     {
         $model = $this->getModel($model);
         $data = $model->all();
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
 
-        return view('crud-api::admin.index');
+        return view('crud-api::admin.index', $data);
     }
 }
