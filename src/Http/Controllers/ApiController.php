@@ -31,7 +31,7 @@ class ApiController extends Controller
     {
         $model = $this->getModel($model);
         try {
-            $model->where('id', $id)->firstOrFail();
+            return $model->where('id', $id)->firstOrFail();
         } catch (Exception $e) {
             return response('Not Found.', 404);
         }
