@@ -66,11 +66,21 @@ class ApiController extends Controller
         $model = $this->getModel($model);
     }
 
+    /**
+     * Fully qualifies the model name based on configuration.
+     * @param  string $model The name of the model.
+     * @return string        Fully qualified model name.
+     */
     private function qualify($model)
     {
         return $this->namespace . '\\' . $model;
     }
 
+    /**
+     * Return the model based on it's name.
+     * @param  string $model The name of the model.
+     * @return Object        A new fully qualified model instance.
+     */
     private function getModel($model)
     {
         $model = $this->qualify($model);
