@@ -69,7 +69,9 @@ class ApiController extends Controller
 
         /* Ensure data is valid */
         $valid = $model->validate($data);
-        if (!$valid) { return response('Model data is invalid', 400); }
+        if (!$valid) {
+            return response('Model data is invalid', 400);
+        }
 
         /* Sanitize passwords */
         if (array_key_exists('password', $data)) {
