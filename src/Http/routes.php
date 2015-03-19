@@ -3,6 +3,7 @@
 /**
  * Package Routes
  */
+// @codingStandardsIgnoreStart
 
 Route::group(['namespace' => 'Taskforcedev\CrudAPI\Http\Controllers'], function()
 {
@@ -20,3 +21,5 @@ Route::group(['namespace' => 'Taskforcedev\CrudAPI\Http\Controllers'], function(
         Route::post('{model}', 'AdminController@store');
     });
 });
+
+// @codingStandardsIgnoreEnd
