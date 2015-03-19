@@ -23,7 +23,7 @@ class ApiController extends Controller
     public function index($model)
     {
         $model = $this->getModel($model);
-        
+
         try {
             $results = $model->all();
             return $results;
