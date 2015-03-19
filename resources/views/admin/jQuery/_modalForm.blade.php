@@ -2,13 +2,14 @@
 <form id="addItem" style="display: none;" title="Add {{ $model }}">
     <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
     @foreach($fields as $f)
-        <label for="{{ $f }}">{{ ucfirst($f) }}</label>
-
+        <div class="input-group">
+            <label for="{{ $f }}">{{ ucfirst($f) }}</label>
         @if (lcfirst($f) == "password")
-            <input type="password" id="{{ lcfirst($f) }}" name="{{ $f }}" />
+            <input type="password" id="{{ lcfirst($f) }}" class="form-control" name="{{ $f }}" />
         @else
-            <input type="text" id="{{ lcfirst($f) }}" name="{{ $f }}" />
+            <input type="text" id="{{ lcfirst($f) }}" class="form-control" name="{{ $f }}" />
         @endif
+        </div>
     @endforeach
 </form>
 
