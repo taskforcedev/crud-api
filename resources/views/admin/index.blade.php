@@ -4,14 +4,16 @@
     <h1>{{ $model }}<button class="btn btn-sm btn-success pull-right"><i class="fa fa-plus"></i> Insert {{ $model }}</button></h1>
 
     <table class="table table-responsive table-striped">
-    <tr>
-        @foreach($fields as $f)
-            <th>{{ ucfirst($f) }}</th>
-        @endforeach
-        <th>Created At</th>
-        <th>Updated At</th>
-        <th>Actions</th>
-    </tr>
+    <thead>
+        <tr>
+            @foreach($fields as $f)
+                <th>{{ ucfirst($f) }}</th>
+            @endforeach
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
     <tbody>
         @if(isset($items))
             @foreach($items as $item)
