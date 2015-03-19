@@ -62,3 +62,9 @@ The admin controller has access to the following routes.
     GET:  /admin/crud/{Model}
     GET:  /admin/crud/{Model}/{id}
     POST: /admin/crud/{Model}
+
+## Technologies Used ##
+ * Laravel (For testing functionality)
+ * jQuery (Model forms)
+ * Bootstrap ([Yeti Theme](https://bootswatch.com/yeti/) from [Bootswatch](https://bootswatch.com/))
+ * [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
