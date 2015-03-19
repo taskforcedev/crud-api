@@ -20,7 +20,8 @@ class AdminController extends Controller
         $class = $this->getModel($model);
         $data = [
             'items' => $class->all(),
-            'model' => $model
+            'model' => $model,
+            'fields' => $class->getFields()
         ];
 
         return view('crudapi::admin.index', $data);

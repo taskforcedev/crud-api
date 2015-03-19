@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'model_ns' => 'App'
+    'model_ns' => 'App',
+    'sitename' => 'CrudApi'
 ];
