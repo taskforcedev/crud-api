@@ -3,7 +3,12 @@
     <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
     @foreach($fields as $f)
         <label for="{{ $f }}">{{ ucfirst($f) }}</label>
-        <input type="text" id="{{ lcfirst($f) }}" name="{{ $f }}" />
+
+        @if (lcfirst($f) == "password")
+            <input type="password" id="{{ lcfirst($f) }}" name="{{ $f }}" />
+        @else
+            <input type="text" id="{{ lcfirst($f) }}" name="{{ $f }}" />
+        @endif
     @endforeach
 </form>
 
@@ -12,18 +17,18 @@
 <script>
 $(function() {
     var dialog, form,
-                <?php // This next block assigns variables to the form inputs // ?>
-                @foreach($fields as $f)
-                    {{ $f }} = $( "#{{ $f }}" ),
-                @endforeach
+        <?php // This next block assigns variables to the form inputs // ?>
+        @foreach($fields as $f)
+            {{ $f }} = $( "#{{ $f }}" ),
+        @endforeach
 
-                allFields = $( [] )
-                    <?php // Add all inputs to allFields // ?>
-                        @foreach($fields as $f)
-                            .add( {{ $f }} )
-                        @endforeach
-                ,
-                tips = $( ".validateTips" );
+        allFields = $( [] )
+            <?php // Add all inputs to allFields // ?>
+                @foreach($fields as $f)
+                    .add( {{ $f }} )
+                @endforeach
+        ,
+        tips = $( ".validateTips" );
 
     function addItem() {
         var valid = true;

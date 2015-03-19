@@ -8,7 +8,9 @@
     <thead>
         <tr>
             @foreach($fields as $f)
-                <th>{{ ucfirst($f) }}</th>
+                @if ($f !== 'password')
+                    <th>{{ ucfirst($f) }}</th>
+                @endif
             @endforeach
             <th>Created At</th>
             <th>Updated At</th>
@@ -20,7 +22,9 @@
             @foreach($items as $item)
                 <tr id="item-{{ $item->id }}">
                 @foreach($fields as $f)
-                    <td class="editable">{{ $item->$f }}</td>
+                    @if ($f !== 'password')
+                        <td class="editable">{{ $item->$f }}</td>
+                    @endif
                 @endforeach
                     <td>{{ $item->created_at }}</td>
                     <td>{{ $item->updated_at }}</td>
