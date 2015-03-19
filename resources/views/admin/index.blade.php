@@ -17,7 +17,7 @@
     <tbody>
         @if(isset($items))
             @foreach($items as $item)
-                <tr>
+                <tr id="item-{{ $item->id }}">
                 @foreach($fields as $f)
                     <td>{{ $item->$f }}</td>
                 @endforeach
