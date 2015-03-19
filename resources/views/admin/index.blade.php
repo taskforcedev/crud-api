@@ -21,7 +21,7 @@
                 @endforeach
                     <td>{{ $item->created_at }}</td>
                     <td>{{ $item->updated_at }}</td>
-                    <td><button class="btn btn-info">Edit</button> <button class="btn btn-danger">Delete</button></td>
+                    <td><button class="btn btn-xs btn-info">Edit</button> <button class="btn btn-xs btn-danger">Delete</button></td>
                 </tr>
             @endforeach
         @endif
