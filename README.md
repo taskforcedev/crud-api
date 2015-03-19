@@ -42,50 +42,12 @@ Trailing slashes will automatically be added so please leave them out.
 The package is built around two controllers, one for Api and one for Admin CRUD operations.
 
 ### Models ###
-In order to use this package you will need to add a validate($data) method to your models, here is an example of the User model which comes by default with laravel with an implementation of validate.
+In order to use this package effectively you will need to add the following methods to your models:
 
-    <?php namespace App;
-
-    use Illuminate\Auth\Authenticatable;
-    use Illuminate\Database\Eloquent\Model;
-    use Illuminate\Auth\Passwords\CanResetPassword;
-    use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-    use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+    validate($data);  /* Handle data validation and authorisation check for creating data here. */
+    getFields(); /* Return an array of fields to display on CRUD pages. */
     
-    class User extends Model implements AuthenticatableContract,     CanResetPasswordContract
-    {
-        use Authenticatable, CanResetPassword;
-    
-        protected $table = 'users';
-    
-        protected $fillable = ['name', 'email', 'password'];
-    
-        protected $hidden = ['password', 'remember_token'];
-    
-        protected $rules = [
-            'name' => 'required',
-            'password' => 'required|min:8',
-            'email' => 'required|email|unique:users'
-        ];
-    
-        public function validate($data)
-        {
-            /* Only validate the required fields */
-            $model_data = [
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => $data['password'],
-            ];
-    
-            $validator = \Validator::make($model_data, $this->rules);
-    
-            if ($validator->fails()) {
-                return response($validator->messages(), 400);
-            }
-    
-            return $validator->passes();
-        }
-    }
+An example model can be found [here](https://gist.github.com/taskforcedev/e2c9e3522dd030907d52).
 
 ### API ###
 The Api controller has access to the following routes.
