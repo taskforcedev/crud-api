@@ -1,7 +1,8 @@
 @extends('crudapi::layouts.master')
 
 @section('content')
-    <h1>{{ $model }}<button class="btn btn-sm btn-success pull-right"><i class="fa fa-plus"></i> Insert {{ $model }}</button></h1>
+    <h1>{{ $model }}<button class="btn btn-sm btn-success pull-right" id="insert-{{ lcfirst($model) }}"><i class="fa fa-plus"></i> Insert {{ $model }}</button></h1>
+    @include('crudapi::admin.jQuery._modalForm')
 
     <table class="table table-responsive table-striped">
     <thead>
@@ -19,7 +20,7 @@
             @foreach($items as $item)
                 <tr id="item-{{ $item->id }}">
                 @foreach($fields as $f)
-                    <td>{{ $item->$f }}</td>
+                    <td class="editable">{{ $item->$f }}</td>
                 @endforeach
                     <td>{{ $item->created_at }}</td>
                     <td>{{ $item->updated_at }}</td>
