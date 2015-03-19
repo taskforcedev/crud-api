@@ -10,6 +10,7 @@
         @endforeach
         <th>Created At</th>
         <th>Updated At</th>
+        <th>Actions</th>
     </tr>
     <tbody>
         @if(isset($items))
@@ -20,6 +21,7 @@
                 @endforeach
                     <td>{{ $item->created_at }}</td>
                     <td>{{ $item->updated_at }}</td>
+                    <td><button class="btn btn-info">Edit</button> <button class="btn btn-danger">Delete</button></td>
                 </tr>
             @endforeach
         @endif
