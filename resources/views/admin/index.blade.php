@@ -1,7 +1,7 @@
 @extends('crudapi::layouts.master')
 
 @section('content')
-    <h1>{{ $model }}</h1>
+    <h1>{{ $model }}<button class="btn btn-sm btn-success pull-right">Insert {{ $model }}</button></h1>
 
     <table class="table">
     <tr>
