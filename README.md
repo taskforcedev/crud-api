@@ -65,6 +65,6 @@ The admin controller has access to the following routes.
 
 ## Technologies Used ##
  * Laravel (For testing functionality)
- * jQuery (Model forms)
+ * jQuery (Modal forms)
  * Bootstrap ([Yeti Theme](https://bootswatch.com/yeti/) from [Bootswatch](https://bootswatch.com/))
  * [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
