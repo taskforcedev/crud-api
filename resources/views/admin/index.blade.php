@@ -34,4 +34,10 @@
         @endif
     </tbody>
     </table>
+
+    <?php
+    if (method_exists($items, 'render')) {
+        echo $items->render();
+    }
+    ?>
 @stop
