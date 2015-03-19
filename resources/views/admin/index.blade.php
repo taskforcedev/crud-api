@@ -1,7 +1,7 @@
 @extends('crudapi::layouts.master')
 
 @section('content')
-    <h1>{{ $model }}<button class="btn btn-sm btn-success pull-right">Insert {{ $model }}</button></h1>
+    <h1>{{ $model }}<button class="btn btn-sm btn-success pull-right"><i class="fa fa-plus"></i> Insert {{ $model }}</button></h1>
 
     <table class="table">
     <tr>
@@ -21,7 +21,7 @@
                 @endforeach
                     <td>{{ $item->created_at }}</td>
                     <td>{{ $item->updated_at }}</td>
-                    <td><button class="btn btn-xs btn-info">Edit</button> <button class="btn btn-xs btn-danger">Delete</button></td>
+                    <td><button class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-xs btn-danger"><i class="fa fa-times"></i> Delete</button></td>
                 </tr>
             @endforeach
         @endif
