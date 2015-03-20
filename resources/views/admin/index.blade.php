@@ -12,8 +12,8 @@
                     <th>{{ ucfirst($f) }}</th>
                 @endif
             @endforeach
-            <th>Created At</th>
-            <th>Updated At</th>
+            <th class="hidden-xs">Created At</th>
+            <th class="hidden-xs">Updated At</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -26,8 +26,8 @@
                         <td class="editable">{{ $item->$f }}</td>
                     @endif
                 @endforeach
-                    <td>{{ $item->created_at }}</td>
-                    <td>{{ $item->updated_at }}</td>
+                    <td class="hidden-xs">{{ $item->created_at }}</td>
+                    <td class="hidden-xs">{{ $item->updated_at }}</td>
                     <td><button class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-xs btn-danger"><i class="fa fa-times"></i> Delete</button></td>
                 </tr>
             @endforeach
