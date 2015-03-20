@@ -4,6 +4,7 @@
     <h1>{{ $model }}<button class="btn btn-sm btn-success pull-right" id="insert-{{ lcfirst($model) }}"><i class="fa fa-plus"></i> Insert {{ $model }}</button></h1>
     @include('crudapi::admin.jQuery._modalInsert')
     @include('crudapi::admin.jQuery._modalDelete')
+    @include('crudapi::admin.jQuery._modalEdit')
 
     <table class="table table-responsive table-striped">
     <thead>
@@ -29,7 +30,7 @@
                 @endforeach
                     <td class="hidden-xs">{{ $item->created_at }}</td>
                     <td class="hidden-xs">{{ $item->updated_at }}</td>
-                    <td>
+                    <td id="actions-{{ $item->id }}">
                         <button id="edit-{{ $item->id }}" class="btn btn-xs btn-info editButton"><i class="fa fa-pencil"></i> Edit</button> 
                         <button id="delete-{{ $item->id }}" class="btn btn-xs btn-danger deleteButton"><i class="fa fa-times"></i> Delete</button>
                     </td>
