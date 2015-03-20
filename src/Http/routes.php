@@ -9,6 +9,7 @@ Route::group(['namespace' => 'Taskforcedev\CrudAPI\Http\Controllers'], function 
         Route::get('{model}/{id}', 'ApiController@show');
         Route::get('{model}', 'ApiController@index');
         Route::post('{model}', 'ApiController@store');
+        Route::delete('{model}/{id}', 'ApiController@destroy');
     });
 
     Route::group(['prefix' => 'admin/crud'], function () {
