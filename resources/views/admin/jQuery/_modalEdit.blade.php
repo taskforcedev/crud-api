@@ -1,36 +1,111 @@
 <script>
-$(function() {
+function refreshEventHandlers()
+    {
+        // EDIT
+        $( ".editButton" ).button().on( "click", function() {
+            var id_string = this.id;
+            var id = id_string.substring(5);
+            editItem(id);
+        });
 
-    //var id;
+        // DELETE
+        // DELETE
+        $( ".deleteButton" ).button().on( "click", function() {
+            var confirm = $( "#confirmDelete" ).dialog({
+                autoOpen: false,
+                height: 300,
+                width: 400,
+                modal: true,
+                buttons: {
+                    "Delete": deleteItem,
+                    Cancel: function() {
+                        confirm.dialog( "close" );
+                    }
+                },
+                close: function() {
+                    confirm.dialog( "close" );
+                }
+            });
+
+            function deleteItem() {
+                var id = $(this).data('id');
+                
+                jQuery.ajax({
+                    url: "{{ url('api/' . $model) }}/" + id,
+                    type: "POST",
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        '_method': "DELETE"
+                    },
+                    success: function () {
+                            window.location.reload();
+                    }
+                });
+            }
+
+            var id_string = this.id;
+            var id = id_string.substring(7);
+            confirm.data('id', id);
+            confirm.dialog( "open" );
+        });
+
+        // SAVE
+        $( ".saveButton" ).button().on( "click", function() {
+            var id_string = this.id;
+            var id = id_string.substring(5);
+            saveItem(id);
+        });
+
+        // CANCEL
+        $( ".cancelButton" ).button().on( "click", function() {
+            var id_string = this.id;
+            var id = id_string.substring(7);
+            actionsCancel(id);
+        });
+    }
+
+    function saveItem(id) {
+
+    }
 
     function editItem(id) {
         var items = $('#item-' + id + ' .editable');
-        actionsEditing(items, id);
+        return actionsEditing(items, id);
     }
 
-    function actionsEditing(items, id)
-    {
+    function actionsEditing(items, id) {
         $.each(items, function() {
             /* get the field name */
             var field = $(this).data("field");
             /* get the value */
-            val = $(this).html();
+            var val = $(this).html();
 
-            $(this).html('<input type="text" name="'+field+'" id="'+field+'-'+id+'" value="'+val+'" />');
+            var ihtml = '<input type="text" name="'+field+'" id="'+field+'-'+id+'" value="'+val+'" />';
+            $(this).html(ihtml);
         });
         
         /* Change Edit and Delete to Save and Cancel */
         saveCancelActions(id);
+
+        refreshEventHandlers();
     }
 
     function actionsCancel(id)
     {
         /* Reset the table fields */
         var items = $('#item-' + id + ' .editable input');
-        console.log(items)
+
+        /* Reset the TD values */
+        $.each(items, function () {
+            /* get the input val */
+            var val = $(this).val();
+            $(this).parent().html(val);
+        });
 
         /* Change the actions */
         defaultActions(id);
+
+        refreshEventHandlers();
     }
 
     function defaultActions(id)
@@ -41,26 +116,16 @@ $(function() {
         actions.html(html);
     }
 
-    function saveCancelActions(id)
-    {
+    function saveCancelActions(id) {
         /* Change the actions */
         var html = '<button id="save-'+id+'" class="btn btn-xs btn-success saveButton"><i class="fa fa-floppy-o"></i> Save</button> <button id="cancel-'+id+'" class="btn btn-xs btn-warning cancelButton"><i class="fa fa-times"></i> Cancel</button>';
         var actions = $('#actions-' + id);
-        actions.html(html);
+        actions.html('');
+        actions.append(html);
     }
-
-    // Add Edit Button click handler
-    $( ".editButton" ).button().on( "click", function() {
-        var id_string = this.id;
-        id = id_string.substring(5);
-        editItem(id);
-    });
-
-    // Add Cancel Button click handler
-    $( ".cancelButton" ).button().on( "click", function() {
-        var id_string = this.id;
-        id = id_string.substring(7);
-        actionsCancel(id);
-    });
+$(function() {
+    refreshEventHandlers();
 });
+
+
 </script>
