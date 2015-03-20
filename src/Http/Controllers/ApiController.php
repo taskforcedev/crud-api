@@ -81,4 +81,16 @@ class ApiController extends Controller
         /* Create the item */
         return $model::create($data);
     }
+
+    /**
+     * Delete an item.
+     * @param string  $model The model from which to delete.
+     * @param integer $id    The id of the item to delete.
+     */
+    public function destory($model, $id)
+    {
+        $model = $this->getModel($model);
+
+        return $model->where('id', $id)->delete();
+    }
 }
