@@ -25,7 +25,7 @@
                 <tr id="item-{{ $item->id }}">
                 @foreach($fields as $f)
                     @if ($f !== 'password')
-                        <td class="editable">{{ $item->$f }}</td>
+                        <td class="editable" data-field="{{ $f }}">{{ $item->$f }}</td>
                     @endif
                 @endforeach
                     <td class="hidden-xs">{{ $item->created_at }}</td>
