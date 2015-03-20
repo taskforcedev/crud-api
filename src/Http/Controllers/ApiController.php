@@ -87,7 +87,7 @@ class ApiController extends Controller
      * @param string  $model The model from which to delete.
      * @param integer $id    The id of the item to delete.
      */
-    public function destory($model, $id)
+    public function destroy($model, $id)
     {
         $model = $this->getModel($model);
 
