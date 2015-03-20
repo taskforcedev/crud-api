@@ -2,6 +2,7 @@
 
 namespace Taskforcedev\CrudAPI\Http\Controllers;
 
+use Auth;
 use Exception;
 use Illuminate\Http\Request;
 use Taskforcedev\CrudAPI\Models\CrudModel;
