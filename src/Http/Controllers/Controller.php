@@ -15,13 +15,6 @@ abstract class Controller extends BaseController
 {
     use DispatchesCommands, ValidatesRequests;
 
-    protected $namespace;
-
-    public function __construct()
-    {
-        $this->namespace = $this->getModelNamespace();
-    }
-
     /**
      * Gets the namespace of the applications models (from user config).
      * @return mixed
@@ -38,7 +31,7 @@ abstract class Controller extends BaseController
      */
     protected function qualify($model)
     {
-        return $this->namespace . '\\' . $model;
+        return $this->getModelNamespace() . '\\' . $model;
     }
 
     /**
@@ -48,7 +41,9 @@ abstract class Controller extends BaseController
      */
     protected function getModel($model)
     {
+        var_dump($model);
         $model = $this->qualify($model);
+        var_dump($model);
         return new $model;
     }
 }

@@ -120,7 +120,7 @@ class ApiController extends Controller
 
     public function permissionCheck($permission)
     {
-        if (method_exists($this->user, 'can')) {
+        if (method_exists(Auth::user(), 'can')) {
             return $this->user->can($permission);
         }
     }
