@@ -13,6 +13,13 @@ use Taskforcedev\CrudAPI\Models\CrudModel;
  */
 class ApiController extends Controller
 {
+    private $user;
+
+    public function __construct()
+    {
+        $this->user = Auth::user();
+    }
+
     /**
      * Return all items for a given model.
      *
@@ -58,13 +65,23 @@ class ApiController extends Controller
      */
     public function store($model, Request $request)
     {
-        $model = $this->getModel($model);
+        $class = $this->getModel($model);
 
         $data = $request->all();
 
+        if (!Auth::user()) {
+            return response('You are not logged in.', 400);
+        }
+
         /* Validate Model data */
-        if (!method_exists($model, 'validate')) {
-            return response('Unable to validate model data', 400);
+        if (!method_exists($class, 'validate')) {
+            return response('Unable to validate model data.', 400);
+        }
+
+        /* If User has can method (ACL checking):  Check user has access */
+        $permission = 'insert-' . $model;
+        if (!$this->permissionCheck($permission)) {
+            return response('Unauthorised.', 401);
         }
 
         /* Ensure data is valid */
@@ -91,6 +108,19 @@ class ApiController extends Controller
     {
         $model = $this->getModel($model);
 
+        /* If User has can method (ACL checking):  Check user has access */
+        $permission = 'delete-' . $model;
+        if (!$this->permissionCheck($permission)) {
+            return response('Unauthorised.', 401);
+        }
+
         return $model->where('id', $id)->delete();
+    }
+
+    public function permissionCheck($permission)
+    {
+        if (method_exists($this->user, 'can')) {
+            return $this->user->can($permission);
+        }
     }
 }
