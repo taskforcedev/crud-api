@@ -41,9 +41,7 @@ abstract class Controller extends BaseController
      */
     protected function getModel($model)
     {
-        var_dump($model);
         $model = $this->qualify($model);
-        var_dump($model);
         return new $model;
     }
 }
