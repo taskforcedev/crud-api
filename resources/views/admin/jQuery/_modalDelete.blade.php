@@ -37,9 +37,9 @@ $(function() {
                 '_token': "{{ csrf_token() }}",
                 '_method': "DELETE"
             },
-            success: function (response) {
+            success: function () {
                     window.location.reload();
-            },
+            }
         });
     }
 
@@ -47,7 +47,7 @@ $(function() {
     $( ".deleteButton" ).button().on( "click", function() {
         var id_string = this.id;
         id = id_string.substring(7);
-        confirm.data('id', id)
+        confirm.data('id', id);
         confirm.dialog( "open" );
     });
 });
