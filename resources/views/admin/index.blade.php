@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>{{ $model }}<button class="btn btn-sm btn-success pull-right" id="insert-{{ lcfirst($model) }}"><i class="fa fa-plus"></i> Insert {{ $model }}</button></h1>
-    @include('crudapi::admin.jQuery._modalForm')
+    @include('crudapi::admin.jQuery._modalInsert')
 
     <table class="table table-responsive table-striped">
     <thead>
