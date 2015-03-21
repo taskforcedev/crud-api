@@ -1,6 +1,5 @@
 <?php // FORM ?>
 <form id="addItem" style="display: none;" title="Add {{ $model }}">
-    <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
     @foreach($fields as $f)
         <div class="input-group">
             <label for="{{ $f }}">{{ ucfirst($f) }}</label>
@@ -47,6 +46,7 @@ $(function() {
                     @foreach($fields as $f)
                         "{{ $f }}": a{{ $f }},
                     @endforeach
+                    "_token": "{{ csrf_token() }}"
                 },
                 success: function (response) {
                     window.location.reload();
