@@ -122,6 +122,8 @@ class ApiController extends Controller
     {
         if (method_exists(Auth::user(), 'can')) {
             return $this->user->can($permission);
+        } else {
+            return true;
         }
     }
 }
