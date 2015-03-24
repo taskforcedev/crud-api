@@ -86,7 +86,7 @@ class ApiController extends Controller
         }
 
         /* Ensure data is valid */
-        $valid = $model->validate($data);
+        $valid = $class->validate($data);
         if (!$valid) {
             return response('Model data is invalid', 400);
         }
@@ -97,7 +97,7 @@ class ApiController extends Controller
         }
 
         /* Create the item */
-        return $model::create($data);
+        return $class::create($data);
     }
 
     /**
