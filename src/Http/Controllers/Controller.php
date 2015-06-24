@@ -5,6 +5,7 @@ namespace Taskforcedev\CrudAPI\Http\Controllers;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Console\AppNamespaceDetectorTrait;
 
 /**
  * Class Controller
@@ -13,7 +14,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
  */
 abstract class Controller extends BaseController
 {
-    use DispatchesCommands, ValidatesRequests;
+    use DispatchesCommands, ValidatesRequests, AppNamespaceDetectorTrait;
 
     /**
      * Gets the namespace of the applications models (from user config).
@@ -21,7 +22,12 @@ abstract class Controller extends BaseController
      */
     protected function getModelNamespace()
     {
-        return config('crudapi.model_ns');
+        try {
+            $ns = $this->getAppNamespace();
+            return $ns;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
