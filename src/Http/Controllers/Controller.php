@@ -48,6 +48,9 @@ abstract class Controller extends BaseController
     protected function getModel($model)
     {
         $model = $this->qualify($model);
+        if (!class_exists($model)) {
+            return null;
+        }
         return new $model;
     }
 }
