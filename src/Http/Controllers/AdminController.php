@@ -34,10 +34,11 @@ class AdminController extends Controller
             $items = $class->all();
         }
 
+        $fields = ( method_exists($class, 'getFields') ? $class->getFields() : $class->getFillable() );
         $data = [
             'items' => $items,
             'model' => $model,
-            'fields' => $class->getFields()
+            'fields' => $fields
         ];
 
         return view('crudapi::admin.index', $data);
