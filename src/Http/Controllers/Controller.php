@@ -37,7 +37,7 @@ abstract class Controller extends BaseController
      */
     protected function qualify($model)
     {
-        return $this->getModelNamespace() . '\' . $model;
+        return $this->getModelNamespace() . '\\' . $model;
     }
 
     /**
