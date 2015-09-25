@@ -2,6 +2,7 @@
 
 namespace Taskforcedev\CrudAPI\Http\Controllers;
 
+use \Auth;
 use Illuminate\Http\Request;
 use Taskforcedev\CrudAPI\Models\CrudModel;
 
@@ -17,6 +18,11 @@ class AdminController extends Controller
      */
     public function index($model)
     {
+        $admin = $this->checkAdmin();
+        if ($admin != true) {
+            return response("Unauthorised", 401);
+        }
+        
         $class = $this->getModel($model);
         
         if (is_null($class)) {
@@ -42,5 +48,26 @@ class AdminController extends Controller
         ];
 
         return view('crudapi::admin.index', $data);
+    }
+    
+    public function checkAdmin()
+    {
+        if (!Auth::check()) {
+            return false;
+        }
+        
+        $user = Auth::user();
+        
+        if (method_exists($user, 'can')) {
+            /* Attempt to use sentry style permissions to identify permissions */
+            try {
+                $admin = $user->can('administrate');
+                return $admin;
+            } catch (\Exception $e) {
+                return false;
+            }
+        }
+        
+        return false;
     }
 }
