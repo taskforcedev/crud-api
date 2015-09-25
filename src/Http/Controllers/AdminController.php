@@ -18,6 +18,12 @@ class AdminController extends Controller
     public function index($model)
     {
         $class = $this->getModel($model);
+        
+        if (is_null($class)) {
+            return response("No items found for this class {$class}", 404);
+        }
+
+        $items = $class->all();
 
         $pagination_enabled = config('crudapi.pagination.enabled');
         $pagination_perpage = config('crudapi.pagination.perPage');
