@@ -41,7 +41,7 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * Return the model based on it's name.
+     * Return the model based on its name.
      * @param  string $model The name of the model.
      * @return Object        A new fully qualified model instance.
      */
