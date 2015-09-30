@@ -37,7 +37,19 @@ abstract class Controller extends BaseController
      */
     protected function qualify($model)
     {
-        return $this->getModelNamespace() . $model;
+        $ns = $this->getModelNamespace();
+
+        $ns_model = $ns . $model;
+        if (class_exists($ns_model)) {
+            return $ns_model;
+        }
+
+        $ns_models_model = $ns . 'Models' . '\\' . $model;
+        if (class_exists($ns_models_model)) {
+            return $ns_models_model;
+        }
+
+        return false;
     }
 
     /**
