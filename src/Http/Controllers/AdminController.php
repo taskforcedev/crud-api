@@ -1,10 +1,9 @@
-<?php
-
-namespace Taskforcedev\CrudAPI\Http\Controllers;
+<?php namespace Taskforcedev\CrudAPI\Http\Controllers;
 
 use \Auth;
 use Illuminate\Http\Request;
 use Taskforcedev\CrudAPI\Models\CrudModel;
+use Taskforcedev\LaravelSupport\Http\Controllers\Controller;
 
 /**
  * Class AdminController
@@ -18,13 +17,13 @@ class AdminController extends Controller
      */
     public function index($model)
     {
-        $admin = $this->checkAdmin();
+        $admin = $this->canAdministrate();
         if ($admin != true) {
             return response("Unauthorised", 401);
         }
-        
+
         $class = $this->getModel($model);
-        
+
         if (is_null($class)) {
             return response("No items found for this class {$class}", 404);
         }
@@ -41,33 +40,12 @@ class AdminController extends Controller
         }
 
         $fields = ( method_exists($class, 'getFields') ? $class->getFields() : $class->getFillable() );
-        $data = [
-            'items' => $items,
-            'model' => $model,
-            'fields' => $fields
-        ];
+
+        $data = $this->buildData();
+        $data['items'] = $items;
+        $data['model'] = $model;
+        $data['fields'] = $fields;
 
         return view('crudapi::admin.index', $data);
-    }
-    
-    public function checkAdmin()
-    {
-        if (!Auth::check()) {
-            return false;
-        }
-        
-        $user = Auth::user();
-        
-        if (method_exists($user, 'can')) {
-            /* Attempt to use sentry style permissions to identify permissions */
-            try {
-                $admin = $user->can('administrate');
-                return $admin;
-            } catch (\Exception $e) {
-                return false;
-            }
-        }
-        
-        return false;
     }
 }

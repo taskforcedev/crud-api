@@ -1,11 +1,10 @@
-<?php
-
-namespace Taskforcedev\CrudAPI\Http\Controllers;
+<?php namespace Taskforcedev\CrudAPI\Http\Controllers;
 
 use Auth;
 use Exception;
 use Illuminate\Http\Request;
 use Taskforcedev\CrudAPI\Models\CrudModel;
+use Taskforcedev\LaravelSupport\Http\Controllers\Controller;
 
 /**
  * Class ApiController
@@ -120,6 +119,9 @@ class ApiController extends Controller
 
     public function permissionCheck($permission)
     {
+        if ($this->canAdministrate()) {
+            return true;
+        }
         if (method_exists(Auth::user(), 'can')) {
             return $this->user->can($permission);
         } else {

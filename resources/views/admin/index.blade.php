@@ -1,4 +1,4 @@
-@extends('crudapi::layouts.master')
+@extends($layout)
 
 @section('content')
     <script>
@@ -88,7 +88,7 @@
             var ihtml = '<input type="text" name="'+field+'" id="'+field+'-'+id+'" value="'+val+'" />';
             $(this).html(ihtml);
         });
-        
+
         /* Change Edit and Delete to Save and Cancel */
         saveCancelActions(id);
     }
@@ -129,7 +129,7 @@
                     <td class="hidden-xs">{{ $item->created_at }}</td>
                     <td class="hidden-xs">{{ $item->updated_at }}</td>
                     <td id="actions-{{ $item->id }}">
-                        <button class="btn btn-xs btn-info" onclick="editItem({{ $item->id }});"><i class="fa fa-pencil"></i> Edit</button> 
+                        <button class="btn btn-xs btn-info" onclick="editItem({{ $item->id }});"><i class="fa fa-pencil"></i> Edit</button>
                         <button class="btn btn-xs btn-danger" onclick="deleteItem(this)" data-item-id="{{ $item->id }}"><i class="fa fa-times"></i> Delete</button>
                     </td>
                 </tr>
