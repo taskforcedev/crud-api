@@ -11,7 +11,8 @@
     "keywords": ["user", "routes", "views", "laravel", "login"],
     "require": {
         "php": ">=5.5.0",
-        "illuminate/support": "5.*"
+        "illuminate/support": "5.*",
+        "taskforcedev/laravel-support": "1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.5.*"
