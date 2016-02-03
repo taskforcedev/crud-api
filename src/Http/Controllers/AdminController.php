@@ -25,16 +25,14 @@ class AdminController extends Controller
         $class = $this->getModel($model);
 
         if (is_null($class)) {
-            return response("No items found for this class {$class}", 404);
+            return response("No items found for this model {$model}", 404);
         }
 
-        $items = $class->all();
-
         $pagination_enabled = config('crudapi.pagination.enabled');
-        $pagination_perpage = config('crudapi.pagination.perPage');
+        $perPage = config('crudapi.pagination.perPage');
 
         if ($pagination_enabled) {
-            $items = $class->paginate($pagination_perpage);
+            $items = $class->paginate($perPage);
         } else {
             $items = $class->all();
         }

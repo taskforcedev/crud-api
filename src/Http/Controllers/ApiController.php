@@ -2,6 +2,7 @@
 
 use Auth;
 use Exception;
+use Validator;
 use Illuminate\Http\Request;
 use Taskforcedev\CrudAPI\Models\CrudModel;
 use Taskforcedev\LaravelSupport\Http\Controllers\Controller;
@@ -29,6 +30,14 @@ class ApiController extends Controller
      */
     public function index($model)
     {
+        $user = Auth::user();
+
+        $permission = 'list-' . lcfirst($model) . 's';
+
+        if ($user->cannot($permission)) {
+            return response('Unauthorised.', 401);
+        }
+
         $model = $this->getModel($model);
 
         try {
@@ -49,9 +58,17 @@ class ApiController extends Controller
      */
     public function show($model, $id)
     {
-        $model = $this->getModel($model);
+        $class = $this->getModel($model);
+
+        $user = Auth::user();
+        $permission = 'view-' . $model;
+
+        if ($user->cannot($permission, $id)) {
+            return response('Unauthorised.', 401);
+        }
+
         try {
-            return $model->where('id', $id)->firstOrFail();
+            return $class->where('id', $id)->firstOrFail();
         } catch (Exception $e) {
             return response('Not Found.', 404);
         }
@@ -65,29 +82,26 @@ class ApiController extends Controller
      */
     public function store($model, Request $request)
     {
-        $class = $this->getModel($model);
-
-        $data = $request->all();
-
         if (!Auth::user()) {
             return response('You are not logged in.', 400);
         }
 
-        /* Validate Model data */
-        if (!method_exists($class, 'validate')) {
-            return response('Unable to validate model data.', 400);
-        }
+        $class = $this->getModel($model);
+
+        $data = $request->all();
 
         /* If User has can method (ACL checking):  Check user has access */
-        $permission = 'insert-' . $model;
-        if (!$this->permissionCheck($permission)) {
+        $permission = 'create-' . $model;
+        $user = Auth::user();
+
+        if ($user->cannot($permission)) {
             return response('Unauthorised.', 401);
         }
 
-        /* Ensure data is valid */
-        $valid = $class->validate($data);
-        if (!$valid) {
-            return response('Model data is invalid', 400);
+        /* Validate Model data */
+        $validated = $this->validateModelData($class, $data);
+        if ($validated !== true) {
+            return $validated;
         }
 
         /* Sanitize passwords */
@@ -106,26 +120,46 @@ class ApiController extends Controller
      */
     public function destroy($model, $id)
     {
-        $model = $this->getModel($model);
+        if (!Auth::check()) {
+            return response('You must be logged in and authorised to perform this action.', 401);
+        }
+
+        $class = $this->getModel($model);
 
         /* If User has can method (ACL checking):  Check user has access */
         $permission = 'delete-' . $model;
-        if (!$this->permissionCheck($permission)) {
+        $user = Auth::user();
+
+        if (!$user->can($permission, $id)) {
             return response('Unauthorised.', 401);
         }
 
-        return $model->where('id', $id)->delete();
+        return $class->where('id', $id)->delete();
     }
 
-    public function permissionCheck($permission)
+    /**
+     * Validates if data matches models validation.
+     * @param object $model The model to perform validation on.
+     * @param mixed  $data  The data to validate.
+     * @return bool
+     */
+    private function validateModelData($model, $data)
     {
-        if ($this->canAdministrate()) {
-            return true;
+        if (method_exists($model, 'validate')) {
+            return $model->validate($data);
         }
-        if (method_exists(Auth::user(), 'can')) {
-            return $this->user->can($permission);
-        } else {
-            return true;
+
+        if (property_exists($model, 'validation')) {
+            /* Build Validator manually */
+            $validation = $model->validation;
+            $validator = Validator::make($data, $validation);
+            if ($validator->fails()) {
+                return response('Model data is not valid.', 400);
+            } else {
+                return true;
+            }
         }
+
+        return response('Unable to validate model data.', 400);
     }
 }
