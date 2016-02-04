@@ -16,7 +16,7 @@ Route::group(['namespace' => 'Taskforcedev\CrudAPI\Http\Controllers'], function 
 
     Route::group(['middleware' => ['web'], 'prefix' => 'admin/crud'], function () {
         Route::get('{model}/{id}', 'AdminController@show');
-        Route::get('{model}', 'AdminController@index');
+        Route::get('{model}', [ 'as' => 'crudapi.admin.model', 'uses' => 'AdminController@index' ]);
     });
 
 });
