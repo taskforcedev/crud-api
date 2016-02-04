@@ -14,11 +14,16 @@ class AdminController extends Controller
 {
     /**
      * @param string $model The model to list.
+     * @return mixed
      */
-    public function index($model)
+    public function index(Request $request, $model)
     {
-        $admin = $this->canAdministrate();
-        if ($admin != true) {
+        if (!Auth::check()) {
+            return response("Unauthorised", 401);
+        }
+        $user = Auth::user();
+
+        if ($user->cannot('administrate')) {
             return response("Unauthorised", 401);
         }
 
@@ -37,12 +42,15 @@ class AdminController extends Controller
             $items = $class->all();
         }
 
-        $fields = ( method_exists($class, 'getFields') ? $class->getFields() : $class->getFillable() );
+        $fields = $class->getFillable();
 
         $data = $this->buildData();
         $data['items'] = $items;
         $data['model'] = $model;
         $data['fields'] = $fields;
+        $data['uiframework'] = config('crudapi.framework', 'bs3');
+        $data['timestamps'] = config('crudapi.admin.showTimestamps', false);
+        $data['show_ids'] = config('crudapi.admin.showIds', false);
 
         return view('crudapi::admin.index', $data);
     }

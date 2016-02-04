@@ -75,6 +75,62 @@ class ApiController extends Controller
     }
 
     /**
+     * Update a model item by id.
+     *
+     * @param Request $request The request instance
+     * @param string  $model   The model to query.
+     * @param integer $id      Item Id.
+     *
+     * @return mixed
+     */
+    public function update(Request $request, $model, $id)
+    {
+        if (!Auth::check()) { return response('You are not logged in.', 401); }
+
+        $class = $this->getModel($model);
+
+        $user = Auth::user();
+        $permission = 'update-' . $model;
+
+        if ($user->cannot($permission, $id)) {
+            return response('You do not have permission to ' . $permission, 401);
+        }
+
+        try {
+            $item = $class->where('id', $id)->firstOrFail();
+
+            $fillable = $class->getFillable();
+
+            $validationArray = [];
+            foreach ($fillable as $field) {
+                $validationArray[$field] = $item->$field;
+            }
+
+            $data = $request->only($fillable);
+
+            foreach ($data as $key => $value) {
+
+                if (isset($value) && $value !== '') {
+                    $item->$key = $value;
+                    $validationArray[$key] = $value;
+                }
+            }
+
+            /* Validate Model data */
+            $validated = $this->validateModelData($class, $validationArray);
+            if ($validated !== true) {
+                dd($validated);
+                return $validated;
+            }
+
+            $item->save();
+
+        } catch (Exception $e) {
+            return response('Not Found.', 404);
+        }
+    }
+
+    /**
      * Stores an entry in the database after validation and hashing.
      * @param  string  $model   Model to store.
      * @param  Request $request Request instance.
@@ -117,6 +173,7 @@ class ApiController extends Controller
      * Delete an item.
      * @param string  $model The model from which to delete.
      * @param integer $id    The id of the item to delete.
+     * @return mixed
      */
     public function destroy($model, $id)
     {
@@ -149,12 +206,12 @@ class ApiController extends Controller
             return $model->validate($data);
         }
 
-        if (property_exists($model, 'validation')) {
+        if (method_exists($model, 'getValidation')) {
             /* Build Validator manually */
-            $validation = $model->validation;
+            $validation = $model->getValidation();
             $validator = Validator::make($data, $validation);
             if ($validator->fails()) {
-                return response('Model data is not valid.', 400);
+                return $validator->errors();
             } else {
                 return true;
             }
