@@ -1,11 +1,15 @@
 <?php
 // Required Fields: $item (eg Player), $fields[], $url (The url to post items to).
-// Optional Fields: $hidden_fields, $modal_id, $flash_id,
+// Optional Fields: $hidden_fields, $modal_id, $flash_id, $title
 
 $trimmed_item = strpos($item, ' ') !== false ? join('', explode(' ', $item)) : $item;
 
 if (!isset($modal_id)) {
     $modal_id = "create{$trimmed_item}Modal";
+}
+
+if (!isset($title)) {
+    $title = 'Create ' . $item;
 }
 
 if (!isset($url)) {
@@ -44,7 +48,7 @@ if (!isset($url)) {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Create {{ $item }}</h4>
+                <h4 class="modal-title">{{ $title }}</h4>
             </div>
             <div class="modal-body">
                 @if (isset($flash_id))
