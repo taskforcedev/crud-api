@@ -3,7 +3,7 @@
 @section('content')
 <h1>{{ $model }} <button class="btn btn-sm btn-success pull-xs-right" data-toggle="modal" data-target="#create{{ $model }}Modal"><i class="fa fa-plus"></i> Insert {{ $model }}</button></h1>
 
-<table class="table table-responsive table-striped">
+<table class="table table-striped">
     <thead>
     <tr>
         <th class="hidden-xs">Id</th>
