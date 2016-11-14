@@ -40,5 +40,5 @@ You will then see Copied File at /config/crudapi.php
 
 
 ## Technologies Used ##
- * Laravel (For testing functionality)
- * Bootstrap ([Yeti Theme](https://bootswatch.com/yeti/) from [Bootswatch](https://bootswatch.com/))
+ * Laravel 5.3
+ * Bootstrap

@@ -137,7 +137,7 @@ class CrudApi
                         $relation = $this->get_related_model($f);
                         $output .= '>';
 
-                        $this->getRelatedOptions($relation);
+                        $output .= $this->getRelatedOptions($relation);
 
                         $output .= '</select>';
                     } else {
