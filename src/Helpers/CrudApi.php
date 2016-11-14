@@ -137,7 +137,8 @@ class CrudApi
                         $relation = $this->get_related_model($f);
                         $output .= '>';
 
-                        $output .= $relation->toOptions();
+                        $this->getRelatedOptions($relation);
+
                         $output .= '</select>';
                     } else {
                         $input_attr['type'] = 'text';
@@ -177,7 +178,7 @@ class CrudApi
                         $relation = $this->get_related_model($f);
                         $output .= '>';
 
-                        $output .= $relation->toOptions();
+                        $output .= $this->getRelatedOptions($relation);
                         $output .= '</select>';
                     } else {
                         $input_attr['type'] = 'text';
@@ -229,6 +230,26 @@ class CrudApi
     public function trimmedModel()
     {
         return strpos($this->model, ' ') !== false ? join('', explode(' ', $this->model)) : $this->model;;
+    }
+
+    public function getRelatedOptions($relation)
+    {
+        $output = '';
+
+        if (!method_exists($relation, 'toOptions')) {
+            $relationItems = $relation::all();
+            foreach ($relationItems as $item) {
+                if (!property_exists($item, 'name')) {
+                    // Error - there is no toOptions or name property.
+                } else {
+                    $output .= '<option value="' . $item->id . '">' . $item->name . '</option>';
+                }
+                // attempt to display the name
+            }
+        } else {
+            $output .= $relation->toOptions();
+        }
+        return $output;
     }
 
     public function isIdField($field)

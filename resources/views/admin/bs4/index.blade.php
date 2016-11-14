@@ -55,7 +55,7 @@
                     @endforeach
                 </table>
             @else
-                No {{ $model }}s Found
+                No {{ $displayName }} Found
             @endif
         </div>
 
