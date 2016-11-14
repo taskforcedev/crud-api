@@ -14,16 +14,5 @@ return [
     'pagination' => [
         'enabled' => true,
         'perPage' => 25
-    ],
-
-    /**
-     * Configuration relating to the admin crud area
-     */
-    'admin' => [
-        // Whether or not to show timestamps in the crud display
-        'showTimestamps' => false,
-
-        // Whether to show id's next to each item.
-        'showIds' => false,
     ]
 ];
