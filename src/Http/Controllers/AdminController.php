@@ -1,9 +1,10 @@
 <?php namespace Taskforcedev\CrudAPI\Http\Controllers;
 
 use \Auth;
+use \Validator;
 use Illuminate\Http\Request;
-use Taskforcedev\CrudAPI\Models\CrudModel;
 use Taskforcedev\LaravelSupport\Http\Controllers\Controller;
+use Taskforcedev\CrudAPI\Helpers\CrudApi;
 
 /**
  * Class AdminController
@@ -13,45 +14,140 @@ use Taskforcedev\LaravelSupport\Http\Controllers\Controller;
 class AdminController extends Controller
 {
     /**
-     * @param string $model The model to list.
-     * @return mixed
+     * Qualify the model name to it's matching class
+     * @param $model
      */
-    public function index(Request $request, $model)
+    private function qualifyModel($model)
     {
-        if (!Auth::check()) {
-            return response("Unauthorised", 401);
-        }
-        $user = Auth::user();
+        $crudApi = new CrudApi();
+        $crudApi->setModel($model);
+        return $crudApi->getModel();
+    }
 
-        if ($user->cannot('administrate')) {
-            return response("Unauthorised", 401);
-        }
+    public function index($model)
+    {
+        $fqModel = $this->qualifyModel($model);
 
-        $class = $this->getModel($model);
-
-        if (is_null($class)) {
-            return response("No items found for this model {$model}", 404);
-        }
-
-        $pagination_enabled = config('crudapi.pagination.enabled');
-        $perPage = config('crudapi.pagination.perPage');
-
-        if ($pagination_enabled) {
-            $items = $class->paginate($perPage);
-        } else {
-            $items = $class->all();
+        $exists = class_exists($fqModel);
+        if (!$exists) {
+            return response('Model does not exist', 404);
         }
 
-        $fields = $class->getFillable();
+        $apiHelper = new CrudApi();
+        $apiHelper->setModel($model);
+
+        $instance = new $fqModel;
+        $apiHelper->setInstance($instance);
+
+        $items = $fqModel::all();
+        $apiHelper->setCollection($items);
 
         $data = $this->buildData();
-        $data['items'] = $items;
-        $data['model'] = $model;
-        $data['fields'] = $fields;
-        $data['uiframework'] = config('crudapi.framework', 'bs3');
-        $data['timestamps'] = config('crudapi.admin.showTimestamps', false);
-        $data['show_ids'] = config('crudapi.admin.showIds', false);
 
-        return view('crudapi::admin.index', $data);
+        $data['apiHelper'] = $apiHelper;
+        $data['model'] = $model;
+        $data['instance'] = $instance;
+        $data['fields'] = $instance->getFillable();
+        $data['results'] = $fqModel::all();
+
+        return view('crudapi::admin.bs4.index', $data);
+    }
+
+    public function store(Request $request, $model)
+    {
+        $fqModel = 'App\\' . ucfirst($model);
+
+        $exists = class_exists($fqModel);
+        $instance = new $fqModel;
+
+        $fields = $instance->getFillable();
+
+        if (!$exists) {
+            return response('Model does not exist', 404);
+        }
+
+        /* Validation */
+        $this->validate($request, $instance->validation);
+
+        $fqModel::create($request->only($fields));
+
+        return response('Item Created', 200);
+    }
+
+    public function update(Request $request, $model)
+    {
+        $fqModel = 'App\\' . ucfirst($model);
+
+        $exists = class_exists($fqModel);
+        $instance = new $fqModel;
+
+        $fields = $instance->getFillable();
+
+        if (!$exists) {
+            return response('Model does not exist', 404);
+        }
+
+        // Get the item
+        $id = $request->get('id');
+
+        try {
+            $item = $fqModel::where('id', $id)->firstOrFail();
+
+            foreach ($fields as $f)
+            {
+                if ($request->has($f)) {
+                    $value = $request->get($f);
+                    $item->$f = $value;
+                }
+            }
+
+            // Check the item will still be valid
+            $validator = Validator::make($item->toArray(), $instance->validation);
+
+            if ($validator->fails()) {
+                return response('Model validation failed.', 406);
+            }
+
+            $item->save();
+
+            return response('Item Updated', 200);
+        } catch (ModelNotFoundException $e) {
+            return response('Not found', 404);
+        }
+    }
+
+    public function delete(Request $request, $model)
+    {
+        $fqModel = 'App\\' . ucfirst($model);
+
+        $exists = class_exists($fqModel);
+        $instance = new $fqModel;
+
+        $fields = $instance->getFillable();
+
+        if (!$exists) {
+            return response('Model does not exist', 404);
+        }
+
+        // Get the item
+        $id = $request->get('id');
+
+        try {
+            $item = $fqModel::where('id', $id)->firstOrFail();
+
+            foreach ($fields as $f)
+            {
+                if ($request->has($f)) {
+                    $value = $request->get($f);
+                    $item->$f = $value;
+                }
+            }
+
+            $item->delete();
+
+            return response('Item Deleted', 200);
+        } catch (ModelNotFoundException $e) {
+            return response('Not found', 404);
+        }
     }
 }

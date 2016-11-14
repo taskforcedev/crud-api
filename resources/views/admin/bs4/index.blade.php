@@ -1,69 +1,69 @@
 @extends($layout)
 
 @section('content')
-<h1>{{ $model }} <button class="btn btn-sm btn-success pull-xs-right" data-toggle="modal" data-target="#create{{ $model }}Modal"><i class="fa fa-plus"></i> Insert {{ $model }}</button></h1>
+    <?php
+    $modal_data = [
+        'apiHelper' => $apiHelper,
+        'item' => $model,
+        'fields' => $instance->getFillable(),
+        'done' => 'window.location.reload()',
+    ];
 
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th class="hidden-xs">Id</th>
-        @foreach($fields as $f)
-            @if ($f !== 'password')
-                <th>{{ ucfirst($f) }}</th>
-            @endif
-        @endforeach
-        @if (isset($timestamps) && $timestamps)
-            <th class="hidden-xs">Created At</th>
-            <th class="hidden-xs">Updated At</th>
-        @endif
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    @if(isset($items))
-        @foreach($items as $item)
+    $create_data = $modal_data;
+    $edit_data = $modal_data;
+    $delete_data = $modal_data;
+    ?>
+    @include('crudapi::admin.bs4.modals.createItem._modal', $create_data)
+    @include('crudapi::admin.bs4.modals.editItem._modal', $edit_data)
+    @include('crudapi::admin.bs4.modals.deleteItem._modal', $delete_data)
+
+    <div class="card">
+
+        <div class="header">
             <?php
-                $data_attributes = ' data-id="'. $item->id .'" ';
-                foreach ($fields as $f) {
-                    $data_attributes .= ' data-'. $f .'="'. $item->$f .'" ';
+                $displayName = $apiHelper->getModelDisplayName();
+                $lastCharacter = substr($displayName, -1);
+                if ($lastCharacter !== 's' && $lastCharacter !== 'S') {
+                    $displayName .= 's';
                 }
             ?>
-            <tr id="item-{{ $item->id }}">
-                <td class="hidden-xs">{{ $item->id }}</td>
-                @foreach($fields as $f)
-                    @if ($f !== 'password')
-                        <td>{{ $item->$f }}</td>
-                    @endif
-                @endforeach
-                @if (isset($timestamps) && $timestamps)
-                    <td class="hidden-xs">{{ $item->created_at }}</td>
-                    <td class="hidden-xs">{{ $item->updated_at }}</td>
-                @endif
-                <td id="actions-{{ $item->id }}">
-                    <button class="btn btn-xs btn-info" data-toggle="modal"
-                            data-target="#edit{{ $model }}Modal"
-                            {!! $data_attributes !!}
-                    ><i class="fa fa-pencil"></i> Edit</button>
-                    <button class="btn btn-xs btn-danger" data-toggle="modal"
-                            data-target="#delete{{ $model }}Modal"
-                            {!! $data_attributes !!}
-                    ><i class="fa fa-times"></i> Delete</button>
-                </td>
-            </tr>
-        @endforeach
-    @endif
-    </tbody>
-</table>
+            <h3>{{ $displayName }} @include('crudapi::admin.bs4.modals.createItem._button', ['classes' => 'pull-right'])</h3>
+        </div>
 
-<?php
-if (method_exists($items, 'render')) {
-    echo $items->render();
-}
-?>
-@stop
+        <div class="content">
+
+            @if(count($results) > 0)
+                <table class="table">
+                    <thead>
+                    <tr>
+                        {{ $apiHelper->renderFields('table-headings') }}
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    @foreach($results as $r)
+                        <tr>
+                            <?php
+                            $apiHelper
+                                    ->setInstance($r)
+                                    ->renderFields('table-content');
+                            ?>
+                            <td>
+                                @include('crudapi::admin.bs4.modals.editItem._button', $edit_data)
+                                @include('crudapi::admin.bs4.modals.deleteItem._button', $delete_data)
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            @else
+                No {{ $model }}s Found
+            @endif
+        </div>
+
+    </div>
+@endsection
 
 @section('scripts')
-    @include('crudapi::admin.bs4._createModal', [ 'item' => $model, 'fields' => $fields, 'done' => 'location.reload()' ])
-    @include('crudapi::admin.bs4._editModal',   [ 'item' => $model, 'fields' => $fields, 'done' => 'location.reload()' ])
-    @include('crudapi::admin.bs4._deleteModal', [ 'item' => $model, 'fields' => $fields, 'done' => "$('#item-' + id).remove()" ])
-@stop
+    @include('crudapi::admin.bs4.modals.createItem._js', $create_data)
+    @include('crudapi::admin.bs4.modals.editItem._js', $edit_data)
+    @include('crudapi::admin.bs4.modals.deleteItem._js', $delete_data)
+@endsection
