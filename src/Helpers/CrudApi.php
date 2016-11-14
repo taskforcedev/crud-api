@@ -244,7 +244,6 @@ class CrudApi
                 } else {
                     $output .= '<option value="' . $item->id . '">' . $item->name . '</option>';
                 }
-                // attempt to display the name
             }
         } else {
             $output .= $relation->toOptions();
