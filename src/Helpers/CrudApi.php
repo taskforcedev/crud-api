@@ -239,7 +239,7 @@ class CrudApi
         if (!method_exists($relation, 'toOptions')) {
             $relationItems = $relation::all();
             foreach ($relationItems as $item) {
-                if (!property_exists($item, 'name')) {
+                if (!isset($item->name)) {
                     // Error - there is no toOptions or name property.
                 } else {
                     $output .= '<option value="' . $item->id . '">' . $item->name . '</option>';
