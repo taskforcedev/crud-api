@@ -45,7 +45,14 @@ class CrudApi
 
     public function getModel()
     {
-        $fqModel = $this->getAppNamespace() . $this->model;
+        $namespace = $this->getAppNamespace();
+        $fqModel = $namespace . $this->model;
+        if (!class_exists($fqModel)) {
+            $fqModel = $namespace . "Models\\" . $this->model;
+            if (!class_exists($fqModel)) {
+                return false;
+            }
+        }
         return $fqModel;
     }
 
