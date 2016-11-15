@@ -13,38 +13,31 @@ use Taskforcedev\CrudAPI\Helpers\CrudApi;
  */
 class AdminController extends Controller
 {
-    /**
-     * Qualify the model name to it's matching class
-     * @param $model
-     */
-    private function qualifyModel($model)
+    public $apiHelper;
+
+    public function __construct()
     {
-        $crudApi = new CrudApi();
-        $crudApi->setModel($model);
-        return $crudApi->getModel();
+        $this->apiHelper = new CrudApi();
     }
 
     public function index($model)
     {
-        $fqModel = $this->qualifyModel($model);
+        $this->apiHelper->setModel($model);
+        $fqModel = $this->apiHelper->getModel();
 
-        $exists = class_exists($fqModel);
-        if (!$exists) {
+        if ($fqModel === false) {
             return response('Model does not exist', 404);
         }
 
-        $apiHelper = new CrudApi();
-        $apiHelper->setModel($model);
-
         $instance = new $fqModel;
-        $apiHelper->setInstance($instance);
+        $this->apiHelper->setInstance($instance);
 
         $items = $fqModel::all();
-        $apiHelper->setCollection($items);
+        $this->apiHelper->setCollection($items);
 
         $data = $this->buildData();
 
-        $data['apiHelper'] = $apiHelper;
+        $data['apiHelper'] = $this->apiHelper;
         $data['model'] = $model;
         $data['instance'] = $instance;
         $data['fields'] = $instance->getFillable();
@@ -55,16 +48,15 @@ class AdminController extends Controller
 
     public function store(Request $request, $model)
     {
-        $fqModel = 'App\\' . ucfirst($model);
+        $this->apiHelper->setModel($model);
+        $fqModel = $this->apiHelper->getModel();
 
-        $exists = class_exists($fqModel);
-        $instance = new $fqModel;
-
-        $fields = $instance->getFillable();
-
-        if (!$exists) {
+        if ($fqModel === false) {
             return response('Model does not exist', 404);
         }
+
+        $instance = new $fqModel;
+        $fields = $instance->getFillable();
 
         /* Validation */
         $this->validate($request, $instance->validation);
@@ -76,16 +68,15 @@ class AdminController extends Controller
 
     public function update(Request $request, $model)
     {
-        $fqModel = 'App\\' . ucfirst($model);
+        $this->apiHelper->setModel($model);
+        $fqModel = $this->apiHelper->getModel();
 
-        $exists = class_exists($fqModel);
-        $instance = new $fqModel;
-
-        $fields = $instance->getFillable();
-
-        if (!$exists) {
+        if ($fqModel === false) {
             return response('Model does not exist', 404);
         }
+
+        $instance = new $fqModel;
+        $fields = $instance->getFillable();
 
         // Get the item
         $id = $request->get('id');
@@ -118,14 +109,10 @@ class AdminController extends Controller
 
     public function delete(Request $request, $model)
     {
-        $fqModel = 'App\\' . ucfirst($model);
+        $this->apiHelper->setModel($model);
+        $fqModel = $this->apiHelper->getModel();
 
-        $exists = class_exists($fqModel);
-        $instance = new $fqModel;
-
-        $fields = $instance->getFillable();
-
-        if (!$exists) {
+        if ($fqModel === false) {
             return response('Model does not exist', 404);
         }
 
@@ -134,15 +121,6 @@ class AdminController extends Controller
 
         try {
             $item = $fqModel::where('id', $id)->firstOrFail();
-
-            foreach ($fields as $f)
-            {
-                if ($request->has($f)) {
-                    $value = $request->get($f);
-                    $item->$f = $value;
-                }
-            }
-
             $item->delete();
 
             return response('Item Deleted', 200);
