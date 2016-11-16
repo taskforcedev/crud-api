@@ -272,7 +272,7 @@ class CrudApi
     public function getRelatedModel($f)
     {
         $field = $this->getRelatedField($f);
-        $this->getModel
+        $model = $this->getModel($field);
 
         if (!class_exists($model)) {
             // Convert from DB format to Pascal
