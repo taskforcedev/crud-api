@@ -13,4 +13,11 @@ class CrudApiHelperTest extends TestCase
         $related_field = $crudApi->getRelatedField('user_id');
         $this->assertEquals('user', $related_field);
     }
+
+    public function testGetRelatedFieldForOrganisationId()
+    {
+        $crudApi = new CrudApi(['namespace' => null]);
+        $related_field = $crudApi->getRelatedField('organisation_id');
+        $this->assertEquals('organisation', $related_field);
+    }
 }
