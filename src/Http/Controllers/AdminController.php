@@ -2,6 +2,7 @@
 
 namespace Taskforcedev\CrudApi\Http\Controllers;
 
+use Auth;
 use Validator;
 use Illuminate\Http\Request;
 use Taskforcedev\LaravelSupport\Http\Controllers\Controller;
@@ -21,6 +22,10 @@ class AdminController extends Controller
 
     public function index($model)
     {
+        if (!Auth::check()) {
+            return redirect('/');
+        }
+
         $this->apiHelper->setModel($model);
         $fqModel = $this->apiHelper->getModel();
 
@@ -30,8 +35,6 @@ class AdminController extends Controller
 
         $instance = new $fqModel();
         $this->apiHelper->setInstance($instance);
-
-        $items = $fqModel::all();
 
         $data = $this->buildData();
 
