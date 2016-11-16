@@ -48,7 +48,7 @@ foreach ($fields as $field) {
 
 foreach ($fields as $field) {
     $ucfield = ucfirst($field);
-    if ($apiHelper->isIdField($field)) {
+    if ($apiHelper->fieldHelper->isIdField($field)) {
         echo "$('#editItem{$ucfield} option[value=' +{$field} +']').attr('selected', 'selected'); " . "\n";
     } else {
         echo "$('#editItem{$ucfield}').val({$field});\n";
