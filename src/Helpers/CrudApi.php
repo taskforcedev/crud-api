@@ -176,7 +176,7 @@ class CrudApi
 
                 $output .= '<label for="'.$input_attr['id'].'">'.$ucF.'</label>';
 
-                if ($this->isIdField($f)) {
+                if ($this->fieldHelper->isIdField($f)) {
                     $input_attr['type'] = 'select';
 
                     $output .= '<select ';
@@ -217,7 +217,7 @@ class CrudApi
 
                 $output .= '<label for="'.$input_attr['id'].'">'.$ucF.'</label>';
 
-                if ($this->isIdField($f)) {
+                if ($this->fieldHelper->isIdField($f)) {
                     $input_attr['type'] = 'select';
 
                     $output .= '<select ';
@@ -250,7 +250,7 @@ class CrudApi
             break;
         case 'table-content':
             foreach ($fields as $f) {
-                if ($this->isIdField($f)) {
+                if ($this->fieldHelper->isIdField($f)) {
                     $display = $this->getRelatedDisplay($f);
                     $output .= '<td>'.$display.'</td>';
                 } else {
@@ -300,11 +300,6 @@ class CrudApi
         }
 
         return $output;
-    }
-
-    public function isIdField($field)
-    {
-        return strpos($field, '_id') === false ? false : true;
     }
 
     public function getRelatedField($f)

@@ -21,8 +21,8 @@ class Field
         $this->crudApi = $crudApi;
     }
 
-    public static function isIdField($field)
+    public function isIdField($field)
     {
-
+        return strpos($field, '_id') === false ? false : true;
     }
 }
