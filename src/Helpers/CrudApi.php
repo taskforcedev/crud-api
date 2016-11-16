@@ -20,6 +20,10 @@ class CrudApi
         } else {
             $this->namespace = $this->getAppNamespace();
         }
+        
+        if (array_key_exists('model', $options)) {
+            $this->model = $options['model'];
+        }
     }
 
     public function setModel($model)
@@ -60,10 +64,9 @@ class CrudApi
 
     public function getModel()
     {
-
-        $fqModel = $namespace.$this->model;
+        $fqModel = $this->namespace . $this->model;
         if (!class_exists($fqModel)) {
-            $fqModel = $namespace.'Models\\'.$this->model;
+            $fqModel = $this->namespace . 'Models\\'.$this->model;
             if (!class_exists($fqModel)) {
                 return false;
             }
