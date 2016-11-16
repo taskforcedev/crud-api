@@ -1,6 +1,6 @@
 <?php
 
-namespace Taskforcedev\CrudApi\Providers;
+namespace Taskforcedev\CrudApi;
 
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
@@ -19,10 +19,8 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         /* Load our routes */
         $this->loadRoutes();
-
         /* Load views */
         $this->loadViews();
-
         /* Register config file */
         $this->config();
     }
@@ -33,7 +31,7 @@ class ServiceProvider extends IlluminateServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/crudapi.php', 'crudapi'
+            __DIR__ . '/../config/crudapi.php', 'crudapi'
         );
     }
 
@@ -45,7 +43,7 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         $this->publishes(
             [
-            __DIR__.'/../config/crudapi.php' => config_path('crudapi.php'),
+                __DIR__ . '/../config/crudapi.php' => config_path('crudapi.php'),
             ]
         );
     }
@@ -55,9 +53,9 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     protected function loadRoutes()
     {
-        $routes_path = __DIR__.'/../Http/routes.php';
+        $routes_path = __DIR__ . '/../Http/routes.php';
         if (file_exists($routes_path)) {
-            include __DIR__.'/../Http/routes.php';
+            include __DIR__ . '/../Http/routes.php';
         }
     }
 
@@ -66,13 +64,11 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     protected function loadViews()
     {
-        $view_path = __DIR__.'/../../resources/views';
-
+        $view_path = __DIR__ . '/../../resources/views';
         $this->loadViewsFrom($view_path, 'crudapi');
-
         $this->publishes(
             [
-            $view_path => base_path('resources/views/Taskforcedev/crudapi'),
+                $view_path => base_path('resources/views/Taskforcedev/crudapi'),
             ]
         );
     }
