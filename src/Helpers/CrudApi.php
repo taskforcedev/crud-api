@@ -141,7 +141,7 @@ class CrudApi
                         $output .= "{$attr}='{$value}'";
                     }
 
-                    $relation = $this->get_related_model($f);
+                    $relation = $this->getRelatedModel($f);
                     $output .= '>';
 
                     $output .= $this->getRelatedOptions($relation);
@@ -182,7 +182,7 @@ class CrudApi
                         $output .= "{$attr}='{$value}'";
                     }
 
-                    $relation = $this->get_related_model($f);
+                    $relation = $this->getRelatedModel($f);
                     $output .= '>';
 
                     $output .= $this->getRelatedOptions($relation);
@@ -208,7 +208,7 @@ class CrudApi
         case 'table-content':
             foreach($fields as $f) {
                 if ($this->isIdField($f)) {
-                    $display = $this->get_related_display($f);
+                    $display = $this->getRelatedDisplay($f);
                     $output .= '<td>' . $display . '</td>';
                 } else {
                     $output .= '<td>' . $this->instance->$f . '</td>';
