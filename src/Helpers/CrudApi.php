@@ -83,20 +83,6 @@ class CrudApi
         return $filtered_fields;
     }
 
-    /**
-     * Pass-through method for getting a fully qualified model.
-     * @param null $model Model to retrieve or the currently set model.
-     *
-     * @return false|string
-     */
-    public function getModel($model = null)
-    {
-        if ($model !== null) {
-            $this->model = $model;
-        }
-        return $this->modelHelper->getModel();
-    }
-
     public function getModelDisplayName()
     {
         $instance = $this->getModelInstance();
@@ -366,8 +352,15 @@ class CrudApi
      */
     public function __call($method, $args)
     {
-        if ($method == 'isIdField') {
-            return $this->fieldHelper->isIdField($args[0]);
+        switch ($method) {
+            case 'isIdField':
+                return $this->fieldHelper->isIdField($args[0]);
+                break;
+            case 'getModel':
+                return $this->modelHelper->getModel($args);
+                break;
+            default:
+                break;
         }
     }
 }

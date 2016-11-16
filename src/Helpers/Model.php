@@ -29,9 +29,13 @@ class Model
      *
      * @return false|string
      */
-    public function getModel()
+    public function getModel($model = null)
     {
-        if ($this->crudApi->model === null) {
+        if ($model === null) {
+            $model = $this->crudApi->model;
+        }
+
+        if ($model === null) {
             return false;
         }
 
@@ -40,10 +44,10 @@ class Model
             $this->crudApi->setNamespace('App');
         }
 
-        $fqModel = $this->crudApi->namespace . $this->crudApi->model;
+        $fqModel = $this->crudApi->namespace . $model;
 
         if (!class_exists($fqModel)) {
-            $fqModel = $this->crudApi->namespace . 'Models\\'.$this->crudApi->model;
+            $fqModel = $this->crudApi->namespace . 'Models\\'.$model;
             if (!class_exists($fqModel)) {
                 return false;
             }
