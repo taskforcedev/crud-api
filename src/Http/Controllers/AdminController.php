@@ -84,8 +84,7 @@ class AdminController extends Controller
         try {
             $item = $fqModel::where('id', $id)->firstOrFail();
 
-            foreach ($fields as $f)
-            {
+            foreach ($fields as $f) {
                 if ($request->has($f)) {
                     $value = $request->get($f);
                     $item->$f = $value;

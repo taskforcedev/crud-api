@@ -5,8 +5,8 @@ $trimmed_item = strpos($model, ' ') !== false ? join('', explode(' ', $model)) :
     data-toggle="modal"
     data-id="{{ $r->id }}"
     <?php
-        foreach ($fields as $f) {
-            echo "data-{$f}=\"" . $r->$f . "\" ";
-        }
+    foreach ($fields as $f) {
+        echo "data-{$f}=\"" . $r->$f . "\" ";
+    }
     ?>
     data-target="#edit{{$trimmed_item}}Modal">Edit</button>

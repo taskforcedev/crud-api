@@ -24,7 +24,7 @@ if (!isset($url)) {
             "_token": "{{ csrf_token() }}"
         }
 
-        $('#<?=$modal_id;?>').modal('hide');
+        $('#<?php echo $modal_id;?>').modal('hide');
 
         /* Send the post request */
         @if(isset($done))
@@ -40,7 +40,7 @@ if (!isset($url)) {
     }
 </script>
 <script>
-    $('#<?=$modal_id;?>').on('show.bs.modal', function (event) {
+    $('#<?php echo $modal_id;?>').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
 
         var id = button.data('id');

@@ -1,4 +1,7 @@
 <?php
+/**
+ * CrudApi.php
+ */
 
 namespace Taskforcedev\CrudAPI\Providers;
 
@@ -8,6 +11,7 @@ use Illuminate\Support\ServiceProvider;
  * Class CrudApi
  *
  * @package Taskforcedev\CrudAPI\Providers
+ * @version 1.0.0
  */
 class CrudApi extends ServiceProvider
 {
@@ -38,13 +42,16 @@ class CrudApi extends ServiceProvider
     }
 
     /**
-     * Allows configuration to be publishable, this allows user to override values without editing package.
+     * Allows configuration to be publishable, this allows user to override
+     * values without editing package.
      */
     protected function config()
     {
-        $this->publishes([
+        $this->publishes(
+            [
             __DIR__.'/../config/crudapi.php' => config_path('crudapi.php'),
-        ]);
+            ]
+        );
     }
 
     /**
@@ -67,8 +74,10 @@ class CrudApi extends ServiceProvider
 
         $this->loadViewsFrom($view_path, 'crudapi');
 
-        $this->publishes([
+        $this->publishes(
+            [
             $view_path => base_path('resources/views/Taskforcedev/crudapi'),
-        ]);
+            ]
+        );
     }
 }

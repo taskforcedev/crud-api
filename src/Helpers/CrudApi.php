@@ -93,12 +93,12 @@ class CrudApi
     {
         switch ($type)
         {
-            case 'edit':
-                $action = 'update';
-                break;
-            default:
-                $action = $type;
-                break;
+        case 'edit':
+            $action = 'update';
+            break;
+        default:
+            $action = $type;
+            break;
         }
 
         return route('crudapi.'. $action . '.item', $this->model);
@@ -119,115 +119,115 @@ class CrudApi
         $output = '';
 
         switch ($type) {
-            case 'form-create':
-                foreach($fields as $f) {
-                    $ucF = ucfirst($f);
+        case 'form-create':
+            foreach($fields as $f) {
+                $ucF = ucfirst($f);
 
-                    $input_attr = [
-                        'class' => 'form-control',
-                        'id' => 'createItem' . $f,
-                        'name' => $f,
-                    ];
+                $input_attr = [
+                    'class' => 'form-control',
+                    'id' => 'createItem' . $f,
+                    'name' => $f,
+                ];
 
-                    $output .= '<fieldset class="form-group">';
+                $output .= '<fieldset class="form-group">';
 
-                    $output .= '<label for="'.$input_attr['id'].'">'.$ucF.'</label>';
+                $output .= '<label for="'.$input_attr['id'].'">'.$ucF.'</label>';
 
-                    if ($this->isIdField($f)) {
-                        $input_attr['type'] = 'select';
+                if ($this->isIdField($f)) {
+                    $input_attr['type'] = 'select';
 
-                        $output .= '<select ';
-                        foreach ($input_attr as $attr => $value) {
-                            $output .= "{$attr}='{$value}'";
-                        }
-
-                        $relation = $this->get_related_model($f);
-                        $output .= '>';
-
-                        $output .= $this->getRelatedOptions($relation);
-
-                        $output .= '</select>';
-                    } else {
-                        $input_attr['type'] = 'text';
-
-                        $output .= '<input ';
-                        foreach ($input_attr as $attr => $value) {
-                            $output .= "{$attr}='{$value}'";
-                        }
-                        $output .= '>';
+                    $output .= '<select ';
+                    foreach ($input_attr as $attr => $value) {
+                        $output .= "{$attr}='{$value}'";
                     }
 
-                    $output .= '</fieldset>';
+                    $relation = $this->get_related_model($f);
+                    $output .= '>';
+
+                    $output .= $this->getRelatedOptions($relation);
+
+                    $output .= '</select>';
+                } else {
+                    $input_attr['type'] = 'text';
+
+                    $output .= '<input ';
+                    foreach ($input_attr as $attr => $value) {
+                        $output .= "{$attr}='{$value}'";
+                    }
+                    $output .= '>';
                 }
-                break;
-            case 'form-edit':
-                foreach($fields as $f) {
-                    $ucF = ucfirst($f);
 
-                    $input_attr = [
-                        'class' => 'form-control',
-                        'id' => 'editItem' . $ucF,
-                        'name' => $f,
-                    ];
+                $output .= '</fieldset>';
+            }
+            break;
+        case 'form-edit':
+            foreach($fields as $f) {
+                $ucF = ucfirst($f);
 
-                    $output .= '<fieldset class="form-group">';
+                $input_attr = [
+                    'class' => 'form-control',
+                    'id' => 'editItem' . $ucF,
+                    'name' => $f,
+                ];
 
-                    $output .= '<label for="'.$input_attr['id'].'">'.$ucF.'</label>';
+                $output .= '<fieldset class="form-group">';
 
-                    if ($this->isIdField($f)) {
-                        $input_attr['type'] = 'select';
+                $output .= '<label for="'.$input_attr['id'].'">'.$ucF.'</label>';
 
-                        $output .= '<select ';
-                        foreach ($input_attr as $attr => $value) {
-                            $output .= "{$attr}='{$value}'";
-                        }
+                if ($this->isIdField($f)) {
+                    $input_attr['type'] = 'select';
 
-                        $relation = $this->get_related_model($f);
-                        $output .= '>';
-
-                        $output .= $this->getRelatedOptions($relation);
-                        $output .= '</select>';
-                    } else {
-                        $input_attr['type'] = 'text';
-
-                        $output .= '<input ';
-                        foreach ($input_attr as $attr => $value) {
-                            $output .= "{$attr}='{$value}'";
-                        }
-                        $output .= '>';
+                    $output .= '<select ';
+                    foreach ($input_attr as $attr => $value) {
+                        $output .= "{$attr}='{$value}'";
                     }
 
-                    $output .= '</fieldset>';
-                }
-                break;
-            case 'table-headings':
-                foreach($fields as $f) {
-                    $output .= '<th>' . ucfirst($f) . '</th>';
-                }
-                break;
-            case 'table-content':
-                foreach($fields as $f) {
-                    if ($this->isIdField($f)) {
-                        $display = $this->get_related_display($f);
-                        $output .= '<td>' . $display . '</td>';
-                    } else {
-                        $output .= '<td>' . $this->instance->$f . '</td>';
+                    $relation = $this->get_related_model($f);
+                    $output .= '>';
+
+                    $output .= $this->getRelatedOptions($relation);
+                    $output .= '</select>';
+                } else {
+                    $input_attr['type'] = 'text';
+
+                    $output .= '<input ';
+                    foreach ($input_attr as $attr => $value) {
+                        $output .= "{$attr}='{$value}'";
                     }
+                    $output .= '>';
                 }
-                break;
+
+                $output .= '</fieldset>';
+            }
+            break;
+        case 'table-headings':
+            foreach($fields as $f) {
+                $output .= '<th>' . ucfirst($f) . '</th>';
+            }
+            break;
+        case 'table-content':
+            foreach($fields as $f) {
+                if ($this->isIdField($f)) {
+                    $display = $this->get_related_display($f);
+                    $output .= '<td>' . $display . '</td>';
+                } else {
+                    $output .= '<td>' . $this->instance->$f . '</td>';
+                }
+            }
+            break;
             // JavaScript Variables
-            case 'js-var':
-                foreach($fields as $f) {
-                    $output .= 'var ' . $f . ' = ' . $this->instance->$f . '; ';
-                }
-                break;
-            case 'js-modal-create':
-                foreach($fields as $f) {
-                    $output .= '"'. $f . '": $(\'#createItem'. $f . '\').val(), ';
-                }
-                break;
-            default:
-                return;
+        case 'js-var':
+            foreach($fields as $f) {
+                $output .= 'var ' . $f . ' = ' . $this->instance->$f . '; ';
+            }
+            break;
+        case 'js-modal-create':
+            foreach($fields as $f) {
+                $output .= '"'. $f . '": $(\'#createItem'. $f . '\').val(), ';
+            }
+            break;
+        default:
+            return;
                 break;
         }
 
@@ -263,16 +263,16 @@ class CrudApi
         return (strpos($field, '_id') === false ? false : true);
     }
 
-    public function get_related_field($f)
+    public function getRelatedField($f)
     {
         $relation = str_replace('_id', '', $f);
         return $relation;
     }
 
-    public function get_related_model($f)
+    public function getRelatedModel($f)
     {
-        $field = $this->get_related_field($f);
-        $model = 'App\\' . ucfirst($field);
+        $field = $this->getRelatedField($f);
+        $this->getModel
 
         if (!class_exists($model)) {
             // Convert from DB format to Pascal
@@ -290,25 +290,25 @@ class CrudApi
         return new $model;
     }
 
-    public function get_related_display($f)
+    public function getRelatedDisplay($f)
     {
-        $related_field = $this->get_related_field($f);
+        $related_field = $this->getRelatedField($f);
 
         $field = $this->instance->$related_field;
 
         $class = get_class($field);
 
         switch ($class) {
-            case 'App\\Helpers\\CrudApi':
+        case 'App\\Helpers\\CrudApi':
+            break;
+        case 'App\\Indicator':
+            return $field->indicator;
                 break;
-            case 'App\\Indicator':
-                return $field->indicator;
+        case 'Taskforcedev\\CrudAPI\\Helpers\\CrudApi':
+            return false;
                 break;
-            case 'Taskforcedev\\CrudAPI\\Helpers\\CrudApi':
-                return false;
-                break;
-            default:
-                return $field->name;
+        default:
+            return $field->name;
                 break;
         }
     }
