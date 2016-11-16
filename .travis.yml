@@ -11,4 +11,4 @@ before_script:
   - curl -L https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v1.12.4/php-cs-fixer.phar -o php-cs-fixer
 
 script:
-  - output=$(php -n php-cs-fixer fix -v --dry-run --level=psr2 src); if [[ $output ]]; then while read -r line; do echo -e "\e[00;31m$line\e[00m"; done <<< "$output"; false; fi;
+  - php-cs-fixer fix -v --dry-run --level=psr2 src
