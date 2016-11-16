@@ -51,4 +51,14 @@ class Model
 
         return $fqModel;
     }
+
+    public function instance()
+    {
+        if ($this->crudApi->instance === null) {
+            $fq = $this->getModel();
+            $instance = new $fq;
+            $this->crudApi->setInstance($instance);
+        }
+        return $this->crudApi->instance;
+    }
 }
