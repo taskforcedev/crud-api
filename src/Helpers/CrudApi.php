@@ -12,20 +12,24 @@ class CrudApi
     public $instance;
     public $namespace;
     public $modelHelper;
+    public $fieldHelper;
 
     public function __construct($options = [])
     {
+        /* Set the namespace */
         if (array_key_exists('namespace', $options)) {
             $this->namespace = $options['namespace'];
         } else {
             $this->namespace = $this->getAppNamespace();
         }
-        
+
+        /* Set the model */
         if (array_key_exists('model', $options)) {
             $this->model = $options['model'];
         }
 
         $this->modelHelper = new Model($this);
+        $this->fieldHelper = new Field($this);
     }
 
     /**
@@ -80,12 +84,17 @@ class CrudApi
     }
 
     /**
-     * Pass-through method for getting the fully qualified model.
-     * @return bool|string
+     * Pass-through method for getting a fully qualified model.
+     * @param null $model Model to retrieve or the currently set model.
+     *
+     * @return false|string
      */
-    public function getModel()
+    public function getModel($model = null)
     {
-        return $this->modelHelper->getModel($this->namespace, $this->model);
+        if ($model === null) {
+            $model = $this->model;
+        }
+        return $this->modelHelper->getModel($this->namespace, $model);
     }
 
     public function getModelDisplayName()
@@ -340,7 +349,7 @@ class CrudApi
         case 'App\\Indicator':
             return $field->indicator;
                 break;
-        case 'Taskforcedev\\CrudAPI\\Helpers\\CrudApi':
+        case 'Taskforcedev\\CrudApi\\Helpers\\CrudApi':
             return false;
                 break;
         default:
