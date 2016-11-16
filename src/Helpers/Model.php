@@ -31,7 +31,15 @@ class Model
      */
     public function getModel()
     {
-        var_dump($this->crudApi->model);
+        if ($this->crudApi->model === null) {
+            return false;
+        }
+
+        // If namespace is not detected or set then set to the laravel default of App.
+        if ($this->crudApi->namespace === null) {
+            $this->crudApi->setNamespace('App');
+        }
+
         $fqModel = $this->crudApi->namespace . $this->crudApi->model;
 
         if (!class_exists($fqModel)) {
