@@ -1,4 +1,6 @@
-<?php namespace Taskforcedev\CrudAPI\Helpers;
+<?php
+
+namespace Taskforcedev\CrudAPI\Helpers;
 
 use Illuminate\Console\AppNamespaceDetectorTrait;
 
@@ -13,18 +15,21 @@ class CrudApi
     public function setModel($model)
     {
         $this->model = $model;
+
         return $this;
     }
 
     public function setInstance($item)
     {
         $this->instance = $item;
+
         return $this;
     }
 
     public function setCollection($collection)
     {
         $this->collection = $collection;
+
         return $this;
     }
 
@@ -46,13 +51,14 @@ class CrudApi
     public function getModel()
     {
         $namespace = $this->getAppNamespace();
-        $fqModel = $namespace . $this->model;
+        $fqModel = $namespace.$this->model;
         if (!class_exists($fqModel)) {
-            $fqModel = $namespace . "Models\\" . $this->model;
+            $fqModel = $namespace.'Models\\'.$this->model;
             if (!class_exists($fqModel)) {
                 return false;
             }
         }
+
         return $fqModel;
     }
 
@@ -60,6 +66,7 @@ class CrudApi
     {
         $instance = $this->getModelInstance();
         $display = isset($instance->display) ? $instance->display : ucfirst($this->model);
+
         return $display;
     }
 
@@ -70,6 +77,7 @@ class CrudApi
         }
         $model = $this->getModel();
         $instance = new $model();
+
         return $instance;
     }
 
@@ -77,22 +85,22 @@ class CrudApi
     {
         $trimmed_item = $this->trimmedModel();
 
-        $modalId = $type . $trimmed_item . 'Modal';
+        $modalId = $type.$trimmed_item.'Modal';
 
         $display = $this->getModelDisplayName();
 
-        $modal = (object)[
+        $modal = (object) [
             'id' => $modalId,
-            'title' => ucfirst($type) . ' ' . $display,
+            'title' => ucfirst($type).' '.$display,
             'url' => $this->modalUrl($type),
         ];
+
         return $modal;
     }
 
     private function modalUrl($type)
     {
-        switch ($type)
-        {
+        switch ($type) {
         case 'edit':
             $action = 'update';
             break;
@@ -101,16 +109,16 @@ class CrudApi
             break;
         }
 
-        return route('crudapi.'. $action . '.item', $this->model);
+        return route('crudapi.'.$action.'.item', $this->model);
     }
 
     public function jsMethodName($method)
     {
         // Method == create
-        $jsMethod = $method . $this->trimmedModel();
+        $jsMethod = $method.$this->trimmedModel();
+
         return $jsMethod;
     }
-
 
     public function renderFields($type)
     {
@@ -120,12 +128,12 @@ class CrudApi
 
         switch ($type) {
         case 'form-create':
-            foreach($fields as $f) {
+            foreach ($fields as $f) {
                 $ucF = ucfirst($f);
 
                 $input_attr = [
                     'class' => 'form-control',
-                    'id' => 'createItem' . $f,
+                    'id' => 'createItem'.$f,
                     'name' => $f,
                 ];
 
@@ -161,12 +169,12 @@ class CrudApi
             }
             break;
         case 'form-edit':
-            foreach($fields as $f) {
+            foreach ($fields as $f) {
                 $ucF = ucfirst($f);
 
                 $input_attr = [
                     'class' => 'form-control',
-                    'id' => 'editItem' . $ucF,
+                    'id' => 'editItem'.$ucF,
                     'name' => $f,
                 ];
 
@@ -201,29 +209,29 @@ class CrudApi
             }
             break;
         case 'table-headings':
-            foreach($fields as $f) {
-                $output .= '<th>' . ucfirst($f) . '</th>';
+            foreach ($fields as $f) {
+                $output .= '<th>'.ucfirst($f).'</th>';
             }
             break;
         case 'table-content':
-            foreach($fields as $f) {
+            foreach ($fields as $f) {
                 if ($this->isIdField($f)) {
                     $display = $this->getRelatedDisplay($f);
-                    $output .= '<td>' . $display . '</td>';
+                    $output .= '<td>'.$display.'</td>';
                 } else {
-                    $output .= '<td>' . $this->instance->$f . '</td>';
+                    $output .= '<td>'.$this->instance->$f.'</td>';
                 }
             }
             break;
             // JavaScript Variables
         case 'js-var':
-            foreach($fields as $f) {
-                $output .= 'var ' . $f . ' = ' . $this->instance->$f . '; ';
+            foreach ($fields as $f) {
+                $output .= 'var '.$f.' = '.$this->instance->$f.'; ';
             }
             break;
         case 'js-modal-create':
-            foreach($fields as $f) {
-                $output .= '"'. $f . '": $(\'#createItem'. $f . '\').val(), ';
+            foreach ($fields as $f) {
+                $output .= '"'.$f.'": $(\'#createItem'.$f.'\').val(), ';
             }
             break;
         default:
@@ -236,7 +244,7 @@ class CrudApi
 
     public function trimmedModel()
     {
-        return strpos($this->model, ' ') !== false ? join('', explode(' ', $this->model)) : $this->model;;
+        return strpos($this->model, ' ') !== false ? implode('', explode(' ', $this->model)) : $this->model;
     }
 
     public function getRelatedOptions($relation)
@@ -249,23 +257,25 @@ class CrudApi
                 if (!isset($item->name)) {
                     // Error - there is no toOptions or name property.
                 } else {
-                    $output .= '<option value="' . $item->id . '">' . $item->name . '</option>';
+                    $output .= '<option value="'.$item->id.'">'.$item->name.'</option>';
                 }
             }
         } else {
             $output .= $relation->toOptions();
         }
+
         return $output;
     }
 
     public function isIdField($field)
     {
-        return (strpos($field, '_id') === false ? false : true);
+        return strpos($field, '_id') === false ? false : true;
     }
 
     public function getRelatedField($f)
     {
         $relation = str_replace('_id', '', $f);
+
         return $relation;
     }
 
@@ -280,14 +290,14 @@ class CrudApi
             foreach ($words as $i => $w) {
                 $words[$i] = ucfirst($w);
             }
-            $formatted = join('', $words);
-            $model = 'App\\' . $formatted;
-            if(!class_exists($model)) {
+            $formatted = implode('', $words);
+            $model = 'App\\'.$formatted;
+            if (!class_exists($model)) {
                 return false;
             }
         }
 
-        return new $model;
+        return new $model();
     }
 
     public function getRelatedDisplay($f)
