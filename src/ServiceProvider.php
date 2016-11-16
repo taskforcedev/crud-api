@@ -1,15 +1,15 @@
 <?php
 
-namespace Taskforcedev\CrudAPI\Providers;
+namespace Taskforcedev\CrudApi\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
 /**
- * Class CrudApi.
+ * Class ServiceProvider
  *
  * @version 1.0.0
  */
-class CrudApi extends ServiceProvider
+class ServiceProvider extends IlluminateServiceProvider
 {
     /**
      * Boot method.
