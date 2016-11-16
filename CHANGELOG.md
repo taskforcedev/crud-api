@@ -5,8 +5,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased][unreleased]
 ### Added
  - Added ability to publish views and configuration.
- - Added ability to Insert records.
- - Added support for Bootstrap 4
- - Added configurable sitename.
- - Added pagination.
+ - Added CRUD functionality
+ - Added support for Bootstrap 3/4
  - Added configuration settings for pagination.
