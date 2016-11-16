@@ -1,7 +1,7 @@
 <?php
 
 return [
-    /**
+    /*
      * Please choose which framework should be used for the CRUD ui.
      * Valid options:
      *  'bs3': Bootstrap 3
@@ -13,6 +13,6 @@ return [
 
     'pagination' => [
         'enabled' => true,
-        'perPage' => 25
-    ]
+        'perPage' => 25,
+    ],
 ];

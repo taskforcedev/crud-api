@@ -1,15 +1,14 @@
-<?php namespace Taskforcedev\CrudAPI\Http\Controllers;
+<?php
 
-use \Auth;
-use \Validator;
+namespace Taskforcedev\CrudAPI\Http\Controllers;
+
+use Validator;
 use Illuminate\Http\Request;
 use Taskforcedev\LaravelSupport\Http\Controllers\Controller;
 use Taskforcedev\CrudAPI\Helpers\CrudApi;
 
 /**
- * Class AdminController
- *
- * @package Taskforcedev\CrudAPI\Http\Controllers
+ * Class AdminController.
  */
 class AdminController extends Controller
 {
@@ -29,7 +28,7 @@ class AdminController extends Controller
             return response('Model does not exist', 404);
         }
 
-        $instance = new $fqModel;
+        $instance = new $fqModel();
         $this->apiHelper->setInstance($instance);
 
         $items = $fqModel::all();
@@ -55,7 +54,7 @@ class AdminController extends Controller
             return response('Model does not exist', 404);
         }
 
-        $instance = new $fqModel;
+        $instance = new $fqModel();
         $fields = $instance->getFillable();
 
         /* Validation */
@@ -75,7 +74,7 @@ class AdminController extends Controller
             return response('Model does not exist', 404);
         }
 
-        $instance = new $fqModel;
+        $instance = new $fqModel();
         $fields = $instance->getFillable();
 
         // Get the item
