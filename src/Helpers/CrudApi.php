@@ -1,6 +1,6 @@
 <?php
 
-namespace Taskforcedev\CrudAPI\Helpers;
+namespace Taskforcedev\CrudApi\Helpers;
 
 use Illuminate\Console\AppNamespaceDetectorTrait;
 
@@ -10,8 +10,8 @@ class CrudApi
 
     public $model;
     public $instance;
-    public $collection;
     public $namespace;
+    public $modelHelper;
 
     public function __construct($options = [])
     {
@@ -24,8 +24,26 @@ class CrudApi
         if (array_key_exists('model', $options)) {
             $this->model = $options['model'];
         }
+
+        $this->modelHelper = new Model($this);
     }
 
+    /**
+     * Set the namespace to search within.
+     *
+     * @param string $namespace
+     */
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
+    }
+
+    /**
+     * Set the model to work with.
+     * @param $model
+     *
+     * @return $this
+     */
     public function setModel($model)
     {
         $this->model = $model;
@@ -33,16 +51,15 @@ class CrudApi
         return $this;
     }
 
+    /**
+     * Set a model instance from which to work.
+     * @param $item
+     *
+     * @return $this
+     */
     public function setInstance($item)
     {
         $this->instance = $item;
-
-        return $this;
-    }
-
-    public function setCollection($collection)
-    {
-        $this->collection = $collection;
 
         return $this;
     }
@@ -62,17 +79,13 @@ class CrudApi
         return $filtered_fields;
     }
 
+    /**
+     * Pass-through method for getting the fully qualified model.
+     * @return bool|string
+     */
     public function getModel()
     {
-        $fqModel = $this->namespace . $this->model;
-        if (!class_exists($fqModel)) {
-            $fqModel = $this->namespace . 'Models\\'.$this->model;
-            if (!class_exists($fqModel)) {
-                return false;
-            }
-        }
-
-        return $fqModel;
+        return $this->modelHelper->getModel($this->namespace, $this->model);
     }
 
     public function getModelDisplayName()
