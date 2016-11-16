@@ -27,7 +27,7 @@ Once the package has downloaded make sure composer has autoloaded.  (composer du
         // Add the laravel support class also if not already present.
         Taskforcedev\LaravelSupport\ServiceProvider::class,
 
-        Taskforcedev\CrudAPI\Providers\CrudApi::class,
+        Taskforcedev\CrudApi\ServiceProvider::class,
     ]
 
 ## Configuration ##
