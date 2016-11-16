@@ -357,7 +357,12 @@ class CrudApi
                 return $this->fieldHelper->isIdField($args[0]);
                 break;
             case 'getModel':
-                return $this->modelHelper->getModel($args);
+                if (isset($args[0])) {
+                  return $this->modelHelper->getModel($args[0]);
+                } else {
+                  return $this->modelHelper->getModel();
+                }
+
                 break;
             default:
                 break;
