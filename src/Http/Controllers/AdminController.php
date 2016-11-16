@@ -1,11 +1,11 @@
 <?php
 
-namespace Taskforcedev\CrudAPI\Http\Controllers;
+namespace Taskforcedev\CrudApi\Http\Controllers;
 
 use Validator;
 use Illuminate\Http\Request;
 use Taskforcedev\LaravelSupport\Http\Controllers\Controller;
-use Taskforcedev\CrudAPI\Helpers\CrudApi;
+use Taskforcedev\CrudApi\Helpers\CrudApi;
 
 /**
  * Class AdminController.
@@ -32,7 +32,6 @@ class AdminController extends Controller
         $this->apiHelper->setInstance($instance);
 
         $items = $fqModel::all();
-        $this->apiHelper->setCollection($items);
 
         $data = $this->buildData();
 

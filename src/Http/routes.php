@@ -1,7 +1,7 @@
 <?php
 
 Route::group(
-    ['namespace' => 'Taskforcedev\CrudAPI\Http\Controllers'], function () {
+    ['namespace' => 'Taskforcedev\CrudApi\Http\Controllers'], function () {
         Route::group(
             ['middleware' => ['web'], 'prefix' => 'admin/'], function () {
                 Route::post('create/{model}',   ['as' => 'crudapi.create.item', 'uses' => 'AdminController@store']);
