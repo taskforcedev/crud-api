@@ -11,6 +11,16 @@ class CrudApi
     public $model;
     public $instance;
     public $collection;
+    public $namespace;
+
+    public function __construct($options = [])
+    {
+        if (array_key_exists('namespace', $options)) {
+            $this->namespace = $options['namespace'];
+        } else {
+            $this->namespace = $this->getAppNamespace();
+        }
+    }
 
     public function setModel($model)
     {
@@ -50,7 +60,7 @@ class CrudApi
 
     public function getModel()
     {
-        $namespace = $this->getAppNamespace();
+
         $fqModel = $namespace.$this->model;
         if (!class_exists($fqModel)) {
             $fqModel = $namespace.'Models\\'.$this->model;
