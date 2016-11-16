@@ -91,10 +91,10 @@ class CrudApi
      */
     public function getModel($model = null)
     {
-        if ($model === null) {
-            $model = $this->model;
+        if ($model !== null) {
+            $this->model = $model;
         }
-        return $this->modelHelper->getModel($this->namespace, $model);
+        return $this->modelHelper->getModel();
     }
 
     public function getModelDisplayName()
@@ -111,8 +111,10 @@ class CrudApi
             return $this->instance;
         }
         $model = $this->getModel();
+        if ($model === false) {
+            return false;
+        }
         $instance = new $model();
-
         return $instance;
     }
 

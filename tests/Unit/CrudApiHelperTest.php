@@ -20,4 +20,16 @@ class CrudApiHelperTest extends TestCase
         $related_field = $crudApi->getRelatedField('organisation_id');
         $this->assertEquals('organisation', $related_field);
     }
+
+    public function testGetModelDisplayNameWithoutAnInstance()
+    {
+        $options = [
+            'namespace' => null,
+            'model' => 'user'
+        ];
+        $crudApi = new CrudApi($options);
+        $display = $crudApi->getModelDisplayName();
+        var_dump($display);
+        $this->assertEquals('User', $display);
+    }
 }

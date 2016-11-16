@@ -43,7 +43,7 @@ class Model
         $fqModel = $this->crudApi->namespace . $this->crudApi->model;
 
         if (!class_exists($fqModel)) {
-            $fqModel = $this->namespace . 'Models\\'.$this->model;
+            $fqModel = $this->crudApi->namespace . 'Models\\'.$this->crudApi->model;
             if (!class_exists($fqModel)) {
                 return false;
             }
