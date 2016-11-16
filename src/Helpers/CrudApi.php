@@ -304,6 +304,9 @@ class CrudApi
             case 'App\\Indicator':
                 return $field->indicator;
                 break;
+            case 'Taskforcedev\\CrudAPI\\Helpers\\CrudApi':
+                return false;
+                break;
             default:
                 return $field->name;
                 break;
