@@ -352,4 +352,20 @@ class CrudApi
                 break;
         }
     }
+
+    /**
+     * Allow certain methods to be passed through to the specified
+     * helper in order to make methods easier to remember.
+     *
+     * @param $method
+     * @param $args
+     *
+     * @return bool
+     */
+    public function __call($method, $args)
+    {
+        if ($method == 'isIdField') {
+            return $this->fieldHelper->isIdField($args[0]);
+        }
+    }
 }
