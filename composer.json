@@ -11,7 +11,6 @@
     "keywords": ["user", "routes", "views", "laravel", "login"],
     "require": {
         "php": ">=5.5.0",
-        "illuminate/support": "5.*",
         "laravel/framework": ">=5.3",
         "taskforcedev/laravel-support": "1.*"
     },
@@ -25,7 +24,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\": "tests/Models"
+            "Test\\": "tests/"
         }
     },
     "minimum-stability": "stable"
