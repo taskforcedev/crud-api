@@ -15,4 +15,30 @@ return [
         'enabled' => true,
         'perPage' => 25,
     ],
+
+    'models' => [
+
+        'fields' => [
+
+            /*
+             * The default field to display when showing crud forms,
+             * Should be model agnostic and available on
+             * all models unless overridden below.
+             */
+            'default' => 'name',
+
+            'primary' => [
+                /*
+                 * If you use forename,surname / first_name,last_name, change below
+                 * comma seperated values will be appended with spaces, eg
+                 * 'User' => 'forename,surname' would display the users forename and surname.
+                 */
+                'User' => 'name'
+            ],
+        ],
+
+        'excluded' => [
+
+        ]
+    ],
 ];
