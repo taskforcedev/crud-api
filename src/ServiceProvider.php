@@ -44,7 +44,7 @@ class ServiceProvider extends IlluminateServiceProvider
         $this->publishes(
             [
                 __DIR__.'/config/crudapi.php' => config_path('crudapi.php'),
-            ]
+            ], 'crudapi-config'
         );
     }
 
@@ -69,7 +69,7 @@ class ServiceProvider extends IlluminateServiceProvider
         $this->publishes(
             [
                 $view_path => base_path('resources/views/Taskforcedev/crudapi'),
-            ]
+            ], 'crudapi-views'
         );
     }
 }
