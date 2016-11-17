@@ -29,7 +29,6 @@ class CrudApiHelperTest extends TestCase
         ];
         $crudApi = new CrudApi($options);
         $display = $crudApi->getModelDisplayName();
-        var_dump($display);
         $this->assertEquals('User', $display);
     }
 }
