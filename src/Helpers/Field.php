@@ -166,7 +166,16 @@ class Field
                 $related = $this->getRelatedField($f);
                 $relation = $instance->$related;
                 $field = $this->getPrimaryField($relation);
-                $output .= '<td>' . $relation->$field . '</td>';
+                if (strpos($field, ',')) {
+                    $subfields = explode(',', $field);
+                    $display = '';
+                    foreach ($subfields as $sf) {
+                        $display .= $relation->$sf . ' ';
+                    }
+                } else {
+                    $display = $relation->$field;
+                }
+                $output .= '<td>' . $display . '</td>';
             } else {
                 $output .= '<td>' . $instance->$f . '</td>';
             }
