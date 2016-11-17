@@ -41,14 +41,15 @@ class Field
     public function getRelatedField($field)
     {
         $relation = str_replace('_id', '', $field);
+
         return $relation;
     }
 
     /**
      * Retrieve the models primary field for display purposes.
      *
-     * @param            $item   Model to retrieve primary field of.
-     * @param null|array $config CrudApi Configuration.
+     * @param            $item   Model to retrieve primary field of
+     * @param null|array $config CrudApi Configuration
      *
      * @return string
      */
@@ -86,6 +87,7 @@ class Field
     public function displayPrimaryField($item, $config = null)
     {
         $field = $this->getPrimaryField($item, $config);
+
         return $item->$field;
     }
 
@@ -139,6 +141,7 @@ class Field
 
             $output .= '</fieldset>';
         }
+
         return $output;
     }
 
@@ -155,6 +158,7 @@ class Field
         foreach ($fields as $f) {
             $output .= '<th>'.ucfirst($f).'</th>';
         }
+
         return $output;
     }
 
@@ -170,16 +174,17 @@ class Field
                     $subfields = explode(',', $field);
                     $display = '';
                     foreach ($subfields as $sf) {
-                        $display .= $relation->$sf . ' ';
+                        $display .= $relation->$sf.' ';
                     }
                 } else {
                     $display = $relation->$field;
                 }
-                $output .= '<td>' . $display . '</td>';
+                $output .= '<td>'.$display.'</td>';
             } else {
-                $output .= '<td>' . $instance->$f . '</td>';
+                $output .= '<td>'.$instance->$f.'</td>';
             }
         }
+
         return $output;
     }
 }

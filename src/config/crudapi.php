@@ -33,7 +33,7 @@ return [
                  * comma seperated values will be appended with spaces, eg
                  * 'User' => 'forename,surname' would display the users forename and surname.
                  */
-                'User' => 'name'
+                'User' => 'name',
             ],
         ],
 
@@ -41,7 +41,7 @@ return [
          * If you wish to prevent a model from being accessible to the crudapi, include it here.
          */
         'excluded' => [
-            //
-        ]
+
+        ],
     ],
 ];
