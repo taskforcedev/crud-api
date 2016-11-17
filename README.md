@@ -34,7 +34,7 @@ Once the package has downloaded make sure composer has autoloaded.  (composer du
 
 Overriding the configuration is not currently in use however support for other frameworks may be added in the future, incase you wish to override or add to the config use:
 
-    php artisan vendor:publish
+    php artisan vendor:publish --tag="crudapi-config"
 
 You will then see Copied File at /config/crudapi.php
 
