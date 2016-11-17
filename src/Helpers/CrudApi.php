@@ -44,6 +44,7 @@ class CrudApi
 
     /**
      * Set the model to work with.
+     *
      * @param $model
      *
      * @return $this
@@ -57,6 +58,7 @@ class CrudApi
 
     /**
      * Set a model instance from which to work.
+     *
      * @param $item
      *
      * @return $this
@@ -101,6 +103,7 @@ class CrudApi
             return false;
         }
         $instance = new $model();
+
         return $instance;
     }
 
@@ -358,9 +361,9 @@ class CrudApi
                 break;
             case 'getModel':
                 if (isset($args[0])) {
-                  return $this->modelHelper->getModel($args[0]);
+                    return $this->modelHelper->getModel($args[0]);
                 } else {
-                  return $this->modelHelper->getModel();
+                    return $this->modelHelper->getModel();
                 }
 
                 break;

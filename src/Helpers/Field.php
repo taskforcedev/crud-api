@@ -3,9 +3,7 @@
 namespace Taskforcedev\CrudApi\Helpers;
 
 /**
- * Class Field
- *
- * @package Taskforcedev\CrudApi\Helpers
+ * Class Field.
  */
 class Field
 {

@@ -3,9 +3,7 @@
 namespace Taskforcedev\CrudApi\Helpers;
 
 /**
- * Class Model
- *
- * @package Taskforcedev\CrudApi\Helpers
+ * Class Model.
  */
 class Model
 {
@@ -44,10 +42,10 @@ class Model
             $this->crudApi->setNamespace('App');
         }
 
-        $fqModel = $this->crudApi->namespace . $model;
+        $fqModel = $this->crudApi->namespace.$model;
 
         if (!class_exists($fqModel)) {
-            $fqModel = $this->crudApi->namespace . 'Models\\'.$model;
+            $fqModel = $this->crudApi->namespace.'Models\\'.$model;
             if (!class_exists($fqModel)) {
                 return false;
             }
@@ -60,9 +58,10 @@ class Model
     {
         if ($this->crudApi->instance === null) {
             $fq = $this->getModel();
-            $instance = new $fq;
+            $instance = new $fq();
             $this->crudApi->setInstance($instance);
         }
+
         return $this->crudApi->instance;
     }
 }
