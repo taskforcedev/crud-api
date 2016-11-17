@@ -156,8 +156,8 @@ class Field
     {
         $output = '';
         foreach ($fields as $f) {
-            if ($this->fieldHelper->isIdField($f)) {
-                $display = $this->crudApi->getRelatedDisplay($f);
+            if ($this->isIdField($f)) {
+                $display = $this->getPrimaryField($instance);
                 $output .= '<td>' . $display . '</td>';
             } else {
                 $output .= '<td>' . $instance->$f . '</td>';
