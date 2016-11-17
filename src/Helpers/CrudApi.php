@@ -201,14 +201,7 @@ class CrudApi
             $output .= $this->fieldHelper->tableHeadings($fields);
             break;
         case 'table-content':
-            foreach ($fields as $f) {
-                if ($this->fieldHelper->isIdField($f)) {
-                    $display = $this->getRelatedDisplay($f);
-                    $output .= '<td>'.$display.'</td>';
-                } else {
-                    $output .= '<td>'.$this->instance->$f.'</td>';
-                }
-            }
+            $output .= $this->fieldHelper->tableContent($fields, $this->instance);
             break;
             // JavaScript Variables
         case 'js-var':

@@ -151,4 +151,18 @@ class Field
         }
         return $output;
     }
+
+    public function tableContent($fields, $instance)
+    {
+        $output = '';
+        foreach ($fields as $f) {
+            if ($this->fieldHelper->isIdField($f)) {
+                $display = $this->crudApi->getRelatedDisplay($f);
+                $output .= '<td>' . $display . '</td>';
+            } else {
+                $output .= '<td>' . $instance->$f . '</td>';
+            }
+        }
+        return $output;
+    }
 }
