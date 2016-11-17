@@ -5,6 +5,6 @@ namespace Test\Models;
 class Post
 {
     public $fillable = [
-        'title', 'body'
+        'title', 'body', 'author_id'
     ];
 }
