@@ -146,53 +146,16 @@ class CrudApi
         return $jsMethod;
     }
 
-    public function renderFields($type)
+    public function renderFields($type, $fields = [])
     {
-        $fields = $this->getFields();
-        $instance = $this->getModelInstance();
+        if (empty($fields)) {
+            $fields = $this->getFields();
+        }
         $output = '';
 
         switch ($type) {
         case 'form-create':
-            foreach ($fields as $f) {
-                $ucF = ucfirst($f);
-
-                $input_attr = [
-                    'class' => 'form-control',
-                    'id' => 'createItem'.$f,
-                    'name' => $f,
-                ];
-
-                $output .= '<fieldset class="form-group">';
-
-                $output .= '<label for="'.$input_attr['id'].'">'.$ucF.'</label>';
-
-                if ($this->fieldHelper->isIdField($f)) {
-                    $input_attr['type'] = 'select';
-
-                    $output .= '<select ';
-                    foreach ($input_attr as $attr => $value) {
-                        $output .= "{$attr}='{$value}'";
-                    }
-
-                    $relation = $this->getRelatedModel($f);
-                    $output .= '>';
-
-                    $output .= $this->getRelatedOptions($relation);
-
-                    $output .= '</select>';
-                } else {
-                    $input_attr['type'] = 'text';
-
-                    $output .= '<input ';
-                    foreach ($input_attr as $attr => $value) {
-                        $output .= "{$attr}='{$value}'";
-                    }
-                    $output .= '>';
-                }
-
-                $output .= '</fieldset>';
-            }
+            $output .= $this->fieldHelper->formCreate($fields);
             break;
         case 'form-edit':
             foreach ($fields as $f) {
@@ -235,9 +198,7 @@ class CrudApi
             }
             break;
         case 'table-headings':
-            foreach ($fields as $f) {
-                $output .= '<th>'.ucfirst($f).'</th>';
-            }
+            $output .= $this->fieldHelper->tableHeadings($fields);
             break;
         case 'table-content':
             foreach ($fields as $f) {

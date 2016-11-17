@@ -82,4 +82,73 @@ class Field
             return $defaultField;
         }
     }
+
+    /**
+     * Render fields into appropriate format for an item creation form.
+     *
+     * @param $fields
+     *
+     * @return string
+     */
+    public function formCreate($fields)
+    {
+        $output = '';
+
+        foreach ($fields as $f) {
+            $ucF = ucfirst($f);
+
+            $input_attr = [
+                'class' => 'form-control',
+                'id' => 'createItem'.$f,
+                'name' => $f,
+            ];
+
+            $output .= '<fieldset class="form-group">';
+
+            $output .= '<label for="'.$input_attr['id'].'">'.$ucF.'</label>';
+
+            if ($this->isIdField($f)) {
+                $input_attr['type'] = 'select';
+
+                $output .= '<select ';
+                foreach ($input_attr as $attr => $value) {
+                    $output .= "{$attr}='{$value}'";
+                }
+
+                $relation = $this->crudApi->getRelatedModel($f);
+                $output .= '>';
+
+                $output .= $this->crudApi->getRelatedOptions($relation);
+
+                $output .= '</select>';
+            } else {
+                $input_attr['type'] = 'text';
+
+                $output .= '<input ';
+                foreach ($input_attr as $attr => $value) {
+                    $output .= "{$attr}='{$value}'";
+                }
+                $output .= '>';
+            }
+
+            $output .= '</fieldset>';
+        }
+        return $output;
+    }
+
+    /**
+     * Return fields as table headings.
+     *
+     * @param $fields
+     *
+     * @return string
+     */
+    public function tableHeadings($fields)
+    {
+        $output = '';
+        foreach ($fields as $f) {
+            $output .= '<th>'.ucfirst($f).'</th>';
+        }
+        return $output;
+    }
 }

@@ -53,4 +53,31 @@ class FieldHelperTest extends TestCase
 
         $this->assertEquals('forename,surname', $primary_field);
     }
+
+    public function testFieldsForFormCreate()
+    {
+        $fields = ['name', 'password', 'post_code'];
+        $options = [
+            'namespace' => null,
+            'model' => 'user'
+        ];
+        $crudApi = new CrudApi($options);
+        $render = $crudApi->fieldHelper->formCreate($fields);
+
+        $this->assertNotFalse(strpos($render, 'name'));
+        $this->assertNotFalse(strpos($render, 'password'));
+        $this->assertNotFalse(strpos($render, 'post_code'));
+    }
+
+    public function testFieldsForTableHeadings()
+    {
+        $fields = ['name', 'password', 'post_code'];
+        $options = [
+            'namespace' => null,
+            'model' => 'user'
+        ];
+        $crudApi = new CrudApi($options);
+        $render = $crudApi->fieldHelper->tableHeadings($fields);
+        $this->assertEquals('<th>Name</th><th>Password</th><th>Post_code</th>', $render);
+    }
 }
