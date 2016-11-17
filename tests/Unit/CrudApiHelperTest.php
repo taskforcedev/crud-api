@@ -31,21 +31,4 @@ class CrudApiHelperTest extends TestCase
         $display = $crudApi->getModelDisplayName();
         $this->assertEquals('User', $display);
     }
-
-    public function testRenderFieldsWithSimpleFieldListAsCreateForm()
-    {
-        $fields = ['name', 'password', 'post_code'];
-        $options = [
-            'namespace' => null,
-            'model' => 'user'
-        ];
-        $crudApi = new CrudApi($options);
-        $render = $crudApi->renderFields('form-create', $fields);
-
-        $hasName = strpos($render, 'name');
-
-        var_dump($render, $hasName !== false);
-
-        //$this->assertTrue();
-    }
 }
