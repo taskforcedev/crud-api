@@ -1,15 +1,19 @@
 language: php
+
 php:
 - '5.6'
 - '7.0'
+
 install:
 - composer install
 - composer dumpautoload
+
 before_script:
-- curl -L https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v1.12.4/php-cs-fixer.phar
-  -o php-cs-fixer
+- curl -L https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v1.12.4/php-cs-fixer.phar -o php-cs-fixer
+
 script:
 - php php-cs-fixer fix -v --dry-run
+
 notifications:
   slack:
     secure: MiSTO6QIDI6rqLH5cOx01JJ6LZPFZz/w+xK4rItGPxlf7XwDXKkUE02h5CkyYZByVOdM+8+eNgQT21cfdES4sGUBSbHbZrbm7a4l8QTnB8Y8Th2DNnRYDsw6hT+/zvF4+wRfwRmsUGt5o0OVVa4+T2dLSozkO+H3COBVyu2tOv4=
