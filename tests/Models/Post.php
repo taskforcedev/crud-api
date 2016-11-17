@@ -1,7 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: david.craig1
- * Date: 17/11/2016
- * Time: 13:09
- */
+
+namespace Test\Models;
+
+class Post
+{
+    public $fillable = [
+        'title', 'body'
+    ];
+}
