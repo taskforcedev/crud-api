@@ -83,6 +83,12 @@ class Field
         }
     }
 
+    public function displayPrimaryField($item, $config = null)
+    {
+        $field = $this->getPrimaryField($item, $config);
+        return $item->$field;
+    }
+
     /**
      * Render fields into appropriate format for an item creation form.
      *
