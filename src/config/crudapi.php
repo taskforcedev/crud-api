@@ -37,8 +37,11 @@ return [
             ],
         ],
 
+        /*
+         * If you wish to prevent a model from being accessible to the crudapi, include it here.
+         */
         'excluded' => [
-
+            //
         ]
     ],
 ];
