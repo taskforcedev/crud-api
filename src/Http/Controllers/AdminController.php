@@ -29,6 +29,10 @@ class AdminController extends Controller
         $this->apiHelper->setModel($model);
         $fqModel = $this->apiHelper->getModel();
 
+        if (Auth::user()->cannot('create', $fqModel)) {
+            return redirect('/');
+        }
+
         if ($fqModel === false) {
             return response('Model does not exist', 404);
         }
