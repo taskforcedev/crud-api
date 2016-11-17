@@ -7,6 +7,7 @@ use Validator;
 use Illuminate\Http\Request;
 use Taskforcedev\LaravelSupport\Http\Controllers\Controller;
 use Taskforcedev\CrudApi\Helpers\CrudApi;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class AdminController.
