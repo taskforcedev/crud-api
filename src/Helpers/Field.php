@@ -19,17 +19,39 @@ class Field
         $this->crudApi = $crudApi;
     }
 
+    /**
+     * Determine if the field is an id field.
+     *
+     * @param $field
+     *
+     * @return bool
+     */
     public function isIdField($field)
     {
         return strpos($field, '_id') === false ? false : true;
     }
 
+    /**
+     * Parse a relation field name into the relation name.
+     *
+     * @param string $field Field name
+     *
+     * @return string
+     */
     public function getRelatedField($field)
     {
         $relation = str_replace('_id', '', $field);
         return $relation;
     }
 
+    /**
+     * Retrieve the models primary field for display purposes.
+     *
+     * @param            $item   Model to retrieve primary field of.
+     * @param null|array $config CrudApi Configuration.
+     *
+     * @return string
+     */
     public function getPrimaryField($item, $config = null)
     {
         /* If config is not overridden then load crudapi config */
