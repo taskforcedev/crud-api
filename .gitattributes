@@ -7,3 +7,4 @@ README.md           export-ignore
 .php_cs             export-ignore
 /tests/             export-ignore
 phpunit.xml         export-ignore
+CHANGELOG.md        export-ignore
