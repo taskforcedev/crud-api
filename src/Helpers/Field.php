@@ -163,8 +163,10 @@ class Field
         $output = '';
         foreach ($fields as $f) {
             if ($this->isIdField($f)) {
-                $display = $this->displayPrimaryField($instance);
-                $output .= '<td>' . $display . '</td>';
+                $related = $this->getRelatedField($f);
+                $relation = $instance->$related;
+                $field = $this->getPrimaryField($relation);
+                $output .= '<td>' . $relation->$field . '</td>';
             } else {
                 $output .= '<td>' . $instance->$f . '</td>';
             }
