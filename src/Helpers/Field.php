@@ -163,7 +163,7 @@ class Field
         $output = '';
         foreach ($fields as $f) {
             if ($this->isIdField($f)) {
-                $display = $this->getPrimaryField($instance);
+                $display = $this->displayPrimaryField($instance);
                 $output .= '<td>' . $display . '</td>';
             } else {
                 $output .= '<td>' . $instance->$f . '</td>';
