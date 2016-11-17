@@ -293,13 +293,6 @@ class CrudApi
         return $output;
     }
 
-    public function getRelatedField($f)
-    {
-        $relation = str_replace('_id', '', $f);
-
-        return $relation;
-    }
-
     public function getRelatedModel($f)
     {
         $field = $this->getRelatedField($f);
@@ -356,6 +349,11 @@ class CrudApi
     public function __call($method, $args)
     {
         switch ($method) {
+            case 'getRelatedField':
+                return $this->fieldHelper->getRelatedField($args[0]);
+            case 'getPrimaryField':
+                return $this->fieldHelper->getPrimaryField($args[0]);
+                break;
             case 'isIdField':
                 return $this->fieldHelper->isIdField($args[0]);
                 break;

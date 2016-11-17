@@ -24,6 +24,12 @@ class Field
         return strpos($field, '_id') === false ? false : true;
     }
 
+    public function getRelatedField($field)
+    {
+        $relation = str_replace('_id', '', $field);
+        return $relation;
+    }
+
     public function getPrimaryField($item, $config = null)
     {
         /* If config is not overridden then load crudapi config */
