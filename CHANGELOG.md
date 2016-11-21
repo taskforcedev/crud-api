@@ -2,9 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased][unreleased]
+## [v1.0.0] - 2016-11-21
 ### Added
- - Added ability to publish views and configuration.
- - Added CRUD functionality
+ - First Public Release, code can be considered production ready for Bootstrap 3/4 based templates.
+ - Added ability to publish configuration.
+ - Added CRUD functionality (Bootstrap 3/4 Modals).
  - Added support for Bootstrap 3/4
- - Added configuration settings for pagination.
+ - Added pagination.
