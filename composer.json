@@ -1,6 +1,6 @@
 {
     "name": "taskforcedev/crud-api",
-    "description": "A laravel package providing routes, controller and views for user login/register, etc.",
+    "description": "A laravel package providing an admin interface to create, edit and delete models.",
     "authors": [
         {
             "name": "Taskforcedev",
