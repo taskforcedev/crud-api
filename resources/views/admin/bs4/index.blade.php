@@ -18,10 +18,7 @@ $delete_data = $modal_data;
     @include('crudapi::admin.bs4.modals.deleteItem._modal', $delete_data)
 <?php
     $displayName = $apiHelper->getModelDisplayName();
-    $lastCharacter = substr($displayName, -1);
-if ($lastCharacter !== 's' && $lastCharacter !== 'S') {
-    $displayName .= 's';
-}
+    $displayName = str_plural($displayName);
 ?>
     <h3>{{ $displayName }} @include('crudapi::admin.bs4.modals.createItem._button', ['classes' => 'pull-right'])</h3>
 
