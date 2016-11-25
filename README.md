@@ -11,16 +11,16 @@ This package provides administration interfaces for models out of the box, in or
  * Models must have a public property $validation containing the array of validation rules.
 - Authorization: Policies must be created to provide access to each model or extend a policy with a generic admin before filter.
 
-User Model: This package assumes users will register on their own accord or be able to reset their own password, therefor any field called Password (or lowercase) will be hidden from the admin form for security purposes.
+User Model: This package assumes users will register on their own accord or be able to reset their own password, therefor any field called Password (or lowercase) will be hidden from the admin forms for security purposes.
 
 ## Installation ##
 To install add the package to your projects composer.json
 
     "require": {
-        "taskforcedev/crud-api": "dev-master"
+        "taskforcedev/crud-api": "1.*"
     }
 
-Once the package has downloaded make sure composer has autoloaded.  (composer dump-autoload).  Then you can add the service provider in your laravels config/app.php.
+Once installed add the service provider in your laravels config/app.php.
 
     'providers' => [
         ...
@@ -29,6 +29,12 @@ Once the package has downloaded make sure composer has autoloaded.  (composer du
 
         Taskforcedev\CrudApi\ServiceProvider::class,
     ]
+
+If you wish to use your own layout in the admin api then follow the instructions from https://github.com/taskforcedev/laravel-support to publish the taskforce-support config and set the layout name there.
+
+In this case a yield is required for scripts to output the javascript required by the framework as well as jquery and bootstrap being included in your application
+
+    @yield('scripts')
 
 ## Configuration ##
 
