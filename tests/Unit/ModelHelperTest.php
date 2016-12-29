@@ -45,4 +45,20 @@ class ModelHelperTest extends TestCase
         $model = new $fqModel;
         $this->assertEquals('Test\\Models\\User', get_class($model));
     }
+
+    public function testAdditionalModelCanBeInstantiated()
+    {
+        $namespace = 'Test\\Models\\';
+
+        $options = [
+            'namespace' => $namespace,
+            'model' => 'AdditionalModel',
+        ];
+
+        $crudApi = new CrudApi($options);
+
+        $fqModel = $crudApi->getModel();
+        $model = new $fqModel;
+        $this->assertEquals('Test\\AnotherNamespace\\AdditionalModel', get_class($model));
+    }
 }
