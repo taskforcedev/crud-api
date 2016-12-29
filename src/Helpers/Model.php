@@ -2,8 +2,6 @@
 
 namespace Taskforcedev\CrudApi\Helpers;
 
-use Illuminate\Support\Facades\Log;
-
 /**
  * Class Model.
  */
@@ -72,7 +70,6 @@ class Model
                 }
             }
         } catch (\Exception $e) {
-            Log::debug('CrudAPI: ' . $e->getMessage());
             return false;
         }
 
