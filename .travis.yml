@@ -13,6 +13,7 @@ before_script:
 
 script:
 - php php-cs-fixer fix -v --dry-run
+- phpunit
 
 notifications:
   slack:
