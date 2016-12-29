@@ -70,6 +70,7 @@ class Model
                 }
             }
         } catch (\Exception $e) {
+            Log::debug('CrudAPI: ' . $e->getMessage());
             return false;
         }
 
