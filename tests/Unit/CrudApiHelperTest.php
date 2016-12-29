@@ -25,7 +25,7 @@ class CrudApiHelperTest extends TestCase
     {
         $options = [
             'namespace' => null,
-            'model' => 'user'
+            'model' => 'User'
         ];
         $crudApi = new CrudApi($options);
         $display = $crudApi->getModelDisplayName();
