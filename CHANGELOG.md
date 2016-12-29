@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.4] - 2016-12-29
+## Added
+ - Add alias for author_id to user model - only happens if there is no author model in the apps namespaces.
+
 ## [v1.0.3] - 2016-12-29
 ### Added
  - Add log::info to aid in debugging if user not logged in or if doesn't have create permission.
