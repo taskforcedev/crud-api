@@ -257,6 +257,19 @@ class CrudApi
         $field = $this->getRelatedField($f);
         $model = $this->getModel($field);
 
+        $modelAliases = [
+            'author' => 'user',
+        ];
+
+        // If class doesn't exist, check if is in aliases array.
+        if (!class_exists($model)) {
+            if (array_key_exists($field, $modelAliases)) {
+                $aliasedModel = $modelAliases[$field];
+                $model = $this->getModel($aliasedModel);
+            }
+        }
+
+        // Model could not be found, try via it's converted name.
         if (!class_exists($model)) {
             // Convert from DB format to Pascal
             $words = explode('_', $field);
