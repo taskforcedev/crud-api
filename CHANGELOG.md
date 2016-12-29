@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.3] - 2016-12-29
+### Added
+ - Add log::info to aid in debugging if user not logged in or if doesn't have create permission.
+
 ## [v1.0.2] - 2016-12-29
 ### Added
  - Add ability to configure additional namespaces to check for models.
