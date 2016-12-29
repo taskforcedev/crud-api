@@ -26,7 +26,7 @@ class AdminController extends Controller
     public function index($model)
     {
         if (!Auth::check()) {
-            Log::info('User is not logged in.');
+            Log::info('CrudAPI: User is not logged in.');
             return redirect('/');
         }
 
@@ -34,7 +34,7 @@ class AdminController extends Controller
         $fqModel = $this->apiHelper->getModel();
 
         if (Auth::user()->cannot('create', $fqModel)) {
-            Log::info('User is unable to create: ' . $fqModel);
+            Log::info('CrudAPI: User is unable to create: ' . $fqModel);
             return redirect('/');
         }
 
