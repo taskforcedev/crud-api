@@ -18,6 +18,7 @@
             <directory suffix=".php">./src</directory>
             <exclude>
                 <file>./src/Http/routes.php</file>
+                <file>./src/ServiceProvider.php</file>
             </exclude>
         </whitelist>
     </filter>
