@@ -20,7 +20,7 @@ class FieldHelperTest extends TestCase
 
         $item = new Post();
 
-        $config = require __DIR__ . '/../../src/config/crudapi.php';
+        $config = require __DIR__ . '/../../config/crudapi.php';
 
         $primary_field = $fieldHelper->getPrimaryField($item, $config);
 
