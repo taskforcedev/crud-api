@@ -2,8 +2,12 @@
 
 namespace Test\Unit;
 
+use PhpParser\Node\Expr\AssignOp\Mod;
 use Test\TestCase;
+use \Mockery as m;
 use Taskforcedev\CrudApi\Helpers\CrudApi;
+use Taskforcedev\CrudApi\Helpers\Model as ModelHelper;
+
 
 class ModelHelperTest extends TestCase
 {
@@ -56,6 +60,10 @@ class ModelHelperTest extends TestCase
         ];
 
         $crudApi = new CrudApi($options);
+
+        $modelHelper = m::mock('\Taskforcedev\CrudApi\Helpers\Model[getAdditionalNamespaces]', [$crudApi]);
+        $modelHelper->shouldReceive('getAdditionalNamespaces')->once()->andReturn(['Test\\AnotherNamespace\\']);
+        $crudApi->modelHelper = $modelHelper;
 
         $fqModel = $crudApi->getModel();
         $model = new $fqModel;

@@ -58,6 +58,21 @@ class Model
             }
         }
 
+        try {
+            // If not conventional, try configurable
+            $additionalNamespaces = $this->getAdditionalNamespaces();
+            if (!empty($additionalNamespaces)) {
+                foreach ($additionalNamespaces as $ns) {
+                    $fqModel = $ns . $model;
+                    if (class_exists($fqModel)) {
+                        return $fqModel;
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            return false;
+        }
+
         return false;
     }
 
@@ -70,5 +85,10 @@ class Model
         }
 
         return $this->crudApi->instance;
+    }
+
+    public function getAdditionalNamespaces()
+    {
+        return config('crudapi.models.namespaces');
     }
 }

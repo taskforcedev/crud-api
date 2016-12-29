@@ -32,6 +32,11 @@ class CrudApi
         $this->fieldHelper = new Field($this);
     }
 
+    public function setModelHelper($modelHelper)
+    {
+        $this->modelHelper = $modelHelper;
+    }
+
     /**
      * Set the namespace to search within.
      *
