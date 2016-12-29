@@ -43,5 +43,11 @@ return [
         'excluded' => [
 
         ],
+
+        /* A list of additional namespaces that will be looked in when trying to crud a model */
+
+        'namespaces' => [
+            //
+        ]
     ],
 ];

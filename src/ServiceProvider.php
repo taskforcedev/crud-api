@@ -31,7 +31,7 @@ class ServiceProvider extends IlluminateServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/config/crudapi.php', 'crudapi'
+            __DIR__ . '/../config/crudapi.php', 'crudapi'
         );
     }
 
@@ -43,7 +43,7 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         $this->publishes(
             [
-                __DIR__.'/config/crudapi.php' => config_path('crudapi.php'),
+                __DIR__ . '/../config/crudapi.php' => config_path('crudapi.php'),
             ], 'crudapi-config'
         );
     }
