@@ -31,4 +31,14 @@ class CrudApiHelperTest extends TestCase
         $display = $crudApi->getModelDisplayName();
         $this->assertEquals('User', $display);
     }
+
+    public function testAuthorUserModelBinding()
+    {
+        $crudApi = new CrudApi(['namespace' => 'Test\\Models\\', 'model' => 'Post']);
+        $related_field = $crudApi->getRelatedField('author_id');
+        $this->assertEquals('author', $related_field);
+        $relation = $crudApi->getRelatedModel($related_field);
+        $class = get_class($relation);
+        $this->assertEquals('Test\\Models\\User', $class);
+    }
 }
