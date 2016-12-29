@@ -5,6 +5,8 @@ namespace Taskforcedev\CrudApi\Http\Controllers;
 use Auth;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 use Taskforcedev\LaravelSupport\Http\Controllers\Controller;
 use Taskforcedev\CrudApi\Helpers\CrudApi;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -24,6 +26,7 @@ class AdminController extends Controller
     public function index($model)
     {
         if (!Auth::check()) {
+            Log::info('User is not logged in.');
             return redirect('/');
         }
 
@@ -31,6 +34,7 @@ class AdminController extends Controller
         $fqModel = $this->apiHelper->getModel();
 
         if (Auth::user()->cannot('create', $fqModel)) {
+            Log::info('User is unable to create: ' . $fqModel);
             return redirect('/');
         }
 
