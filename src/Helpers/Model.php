@@ -2,6 +2,8 @@
 
 namespace Taskforcedev\CrudApi\Helpers;
 
+use Illuminate\Support\Facades\Log;
+
 /**
  * Class Model.
  */
