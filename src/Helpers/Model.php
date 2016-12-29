@@ -37,21 +37,28 @@ class Model
             return false;
         }
 
+        // Make Sure model name is uppercased.
+        $model = ucfirst($model);
+
         // If namespace is not detected or set then set to the laravel default of App.
         if ($this->crudApi->namespace === null) {
-            $this->crudApi->setNamespace('App');
+            $this->crudApi->setNamespace('App\\');
         }
 
-        $fqModel = $this->crudApi->namespace.$model;
 
-        if (!class_exists($fqModel)) {
-            $fqModel = $this->crudApi->namespace.'Models\\'.$model;
-            if (!class_exists($fqModel)) {
-                return false;
+        // Test conventional namespace model combinations
+        $conventions = [
+            $this->crudApi->namespace . $model,
+            $this->crudApi->namespace . 'Models\\' . $model
+        ];
+
+        foreach ($conventions as $fqModel) {
+            if (class_exists($fqModel)) {
+                return $fqModel;
             }
         }
 
-        return $fqModel;
+        return false;
     }
 
     public function instance()
