@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.2] - 2016-12-29
+### Added
+ - Add ability to configure additional namespaces to check for models.
+ 
+### Changed
+ - Move config folder from src to root.
+
 ## [v1.0.1] - 2016-11-25
 ### Added
  - Use laravel pluralization of words (eg Countries instead of Countrys).
