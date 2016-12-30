@@ -3,7 +3,8 @@
 namespace Taskforcedev\CrudApi\Helpers;
 
 /**
- * Class Model.
+ * Class Model
+ * @package Taskforcedev\CrudApi\Helpers
  */
 class Model
 {
@@ -76,6 +77,10 @@ class Model
         return false;
     }
 
+    /**
+     * Return the crudapi model instance.
+     * @return mixed
+     */
     public function instance()
     {
         if ($this->crudApi->instance === null) {
@@ -87,6 +92,10 @@ class Model
         return $this->crudApi->instance;
     }
 
+    /**
+     * Retrieve any additional configured namespaces.
+     * @return mixed
+     */
     public function getAdditionalNamespaces()
     {
         return config('crudapi.models.namespaces');
