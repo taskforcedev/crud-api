@@ -99,4 +99,19 @@ class ModelHelperTest extends TestCase
         $class = get_class($instance);
         $this->assertEquals('Test\\AnotherNamespace\\AdditionalModel', $class, 'Given an instance, modelHelper instance() should return that instance.');
     }
+
+    public function testGetModelReturnsFalseIfNoModelExists()
+    {
+        $options = [
+            'namespace' => 'Test\\AnotherNamespace\\',
+            'model' => 'NonExistantModel',
+        ];
+
+        $crudApi = new CrudApi($options);
+        $modelHelper = m::mock('\Taskforcedev\CrudApi\Helpers\Model[getAdditionalNamespaces]', [$crudApi]);
+        $modelHelper->shouldReceive('getAdditionalNamespaces')->once()->andReturn([]);
+        $crudApi->modelHelper = $modelHelper;
+        $output = $crudApi->getModel();
+        $this->assertFalse($output, 'getModel should return false if asked for non-existant model.');
+    }
 }
