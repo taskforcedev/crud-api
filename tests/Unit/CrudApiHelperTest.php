@@ -3,6 +3,7 @@
 namespace Test\Unit;
 
 use Test\TestCase;
+use \Mockery as m;
 use Taskforcedev\CrudApi\Helpers\CrudApi;
 
 class CrudApiHelperTest extends TestCase
@@ -40,5 +41,13 @@ class CrudApiHelperTest extends TestCase
         $relation = $crudApi->getRelatedModel($related_field);
         $class = get_class($relation);
         $this->assertEquals('Test\\Models\\User', $class);
+    }
+
+    public function testSetModelHelper()
+    {
+        $options = ['namespace' => null];
+        $crudApi = new CrudApi($options);
+        $crudApi->setModelHelper('test');
+        $this->assertEquals('test', $crudApi->modelHelper);
     }
 }
