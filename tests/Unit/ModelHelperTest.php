@@ -85,4 +85,18 @@ class ModelHelperTest extends TestCase
         $instance = $modelHelper->instance();
         $this->assertEquals($testInstance, $instance, 'Given an instance, modelHelper instance() should return that instance.');
     }
+
+    public function testInstanceMethodReturnsAnInstanceOfAModel()
+    {
+        $options = [
+            'namespace' => 'Test\\AnotherNamespace\\',
+            'model' => 'AdditionalModel',
+        ];
+
+        $crudApi = new CrudApi($options);
+        $modelHelper = new ModelHelper($crudApi);
+        $instance = $modelHelper->instance();
+        $class = get_class($instance);
+        $this->assertEquals('Test\\AnotherNamespace\\AdditionalModel', $class, 'Given an instance, modelHelper instance() should return that instance.');
+    }
 }
