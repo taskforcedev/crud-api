@@ -2,7 +2,6 @@
 
 namespace Test\Unit;
 
-use PhpParser\Node\Expr\AssignOp\Mod;
 use Test\TestCase;
 use \Mockery as m;
 use Taskforcedev\CrudApi\Helpers\CrudApi;
@@ -68,5 +67,22 @@ class ModelHelperTest extends TestCase
         $fqModel = $crudApi->getModel();
         $model = new $fqModel;
         $this->assertEquals('Test\\AnotherNamespace\\AdditionalModel', get_class($model));
+    }
+
+    public function testInstanceMethodReturnsTheSpecifiedInstance()
+    {
+        $namespace = 'Test\\Models\\';
+
+        $options = [
+            'namespace' => $namespace,
+            'model' => 'AdditionalModel',
+        ];
+
+        $crudApi = new CrudApi($options);
+        $modelHelper = new ModelHelper($crudApi);
+        $testInstance = 'testing';
+        $crudApi->setInstance($testInstance);
+        $instance = $modelHelper->instance();
+        $this->assertEquals($testInstance, $instance, 'Given an instance, modelHelper instance() should return that instance.');
     }
 }
