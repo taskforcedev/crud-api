@@ -57,7 +57,7 @@ Overriding the configuration is not currently in use however support for other f
 You will then see Copied File at /config/crudapi.php
 
 ## Technologies Used
- * Laravel 5.3
+ * Laravel 5.3+
  * Bootstrap
 
 ## Contributing
