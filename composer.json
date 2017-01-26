@@ -8,7 +8,7 @@
         }
     ],
     "license": "MIT",
-    "keywords": ["user", "routes", "views", "laravel", "login"],
+    "keywords": ["admin", "views", "laravel", "crud"],
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": ">=5.4",
