@@ -9,7 +9,7 @@ We have tested the package in multiple scenarios and are comfortable using it in
 
 This package provides administration interfaces for models out of the box, in order for this to work Laravel 5.3 conventions must be followed as per the assumptions below:
 
-## Assumptions ##
+## Assumptions
 - The package uses the $fillable attribute on your model in order to populate crud forms
 - Models:
  * Models must have a public property $validation containing the array of validation rules.
@@ -17,7 +17,7 @@ This package provides administration interfaces for models out of the box, in or
 
 User Model: This package assumes users will register on their own accord or be able to reset their own password, therefor any field called Password (or lowercase) will be hidden from the admin forms for security purposes.
 
-## Installation ##
+## Installation
 To install add the package to your projects composer.json
 
 Laravel 5.3
@@ -48,7 +48,7 @@ In this case a yield is required for scripts to output the javascript required b
 
     @yield('scripts')
 
-## Configuration ##
+## Configuration
 
 Overriding the configuration is not currently in use however support for other frameworks may be added in the future, incase you wish to override or add to the config use:
 
@@ -56,7 +56,10 @@ Overriding the configuration is not currently in use however support for other f
 
 You will then see Copied File at /config/crudapi.php
 
-
-## Technologies Used ##
+## Technologies Used
  * Laravel 5.3
  * Bootstrap
+
+## Contributing
+
+Please see file CONTRIBUTING
