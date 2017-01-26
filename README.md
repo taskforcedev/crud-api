@@ -20,8 +20,16 @@ User Model: This package assumes users will register on their own accord or be a
 ## Installation ##
 To install add the package to your projects composer.json
 
+Laravel 5.3
+
     "require": {
-        "taskforcedev/crud-api": "1.*"
+        "taskforcedev/crud-api": "1.0.*"
+    }
+
+Laravel 5.4
+
+    "require": {
+        "taskforcedev/crud-api": "1.1.*"
     }
 
 Once installed add the service provider in your laravels config/app.php.
