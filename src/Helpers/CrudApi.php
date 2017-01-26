@@ -2,11 +2,11 @@
 
 namespace Taskforcedev\CrudApi\Helpers;
 
-use Illuminate\Console\AppNamespaceDetectorTrait;
+use Illuminate\Console\DetectsApplicationNamespace;
 
 class CrudApi
 {
-    use AppNamespaceDetectorTrait;
+    use DetectsApplicationNamespace;
 
     public $model;
     public $instance;
