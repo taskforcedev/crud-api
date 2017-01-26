@@ -62,7 +62,7 @@ You will then see Copied File at /config/crudapi.php
 
 ## Contributing
 
-Please see file CONTRIBUTING.md for information on how you can help.
+Please see file [CONTRIBUTING.md](https://github.com/taskforcedev/crud-api/blob/master/CONTRIBUTING.md) for information on how you can help.
 
 ## Security
 
