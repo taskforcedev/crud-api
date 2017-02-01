@@ -2,8 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.0.5] - 2017-02-01
+### Changed
+ - Fix version of laravel support to 1.0.* for laravel 5.3 support.
+
 ## [v1.0.4] - 2016-12-29
-## Added
+### Added
  - Add alias for author_id to user model - only happens if there is no author model in the apps namespaces.
 
 ## [v1.0.3] - 2016-12-29
