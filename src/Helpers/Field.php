@@ -166,7 +166,7 @@ class Field
 
             $output .= '<label for="'.$input_attr['id'].'">'.$ucF.'</label>';
 
-            if ($this->fieldHelper->isIdField($f)) {
+            if ($this->isIdField($f)) {
                 $input_attr['type'] = 'select';
 
                 $output .= '<select ';
