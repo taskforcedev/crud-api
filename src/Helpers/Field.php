@@ -205,7 +205,9 @@ class Field
     {
         $output = '';
         foreach ($fields as $f) {
-            $output .= '<th>'.ucfirst($f).'</th>';
+            $field = ucfirst($f);
+            $field = str_replace('_id', ' Id', $field);
+            $output .= '<th>'.$field.'</th>';
         }
 
         return $output;
