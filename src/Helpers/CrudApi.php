@@ -14,6 +14,10 @@ class CrudApi
     public $modelHelper;
     public $fieldHelper;
 
+    /**
+     * CrudApi Helper.
+     * @param array $options
+     */
     public function __construct($options = [])
     {
         /* Set the namespace */
@@ -32,6 +36,10 @@ class CrudApi
         $this->fieldHelper = new Field($this);
     }
 
+    /**
+     * Set the Crud API Model Helper.
+     * @param object $modelHelper Model Helper Object.
+     */
     public function setModelHelper($modelHelper)
     {
         $this->modelHelper = $modelHelper;
@@ -50,7 +58,7 @@ class CrudApi
     /**
      * Set the model to work with.
      *
-     * @param $model
+     * @param string $model Model name.
      *
      * @return $this
      */
@@ -64,7 +72,7 @@ class CrudApi
     /**
      * Set a model instance from which to work.
      *
-     * @param $item
+     * @param Object $item Model instance
      *
      * @return $this
      */
@@ -75,6 +83,13 @@ class CrudApi
         return $this;
     }
 
+    /**
+     * Get Fields
+     *
+     * Get a models fillable fields.
+     *
+     * @return array
+     */
     public function getFields()
     {
         $model = $this->getModelInstance();
@@ -90,6 +105,10 @@ class CrudApi
         return $filtered_fields;
     }
 
+    /**
+     * Get a models display name.
+     * @return string
+     */
     public function getModelDisplayName()
     {
         $instance = $this->getModelInstance();
@@ -98,6 +117,10 @@ class CrudApi
         return $display;
     }
 
+    /**
+     * Get an instance of a model.
+     * @return bool
+     */
     public function getModelInstance()
     {
         if ($this->instance !== null) {
@@ -112,6 +135,11 @@ class CrudApi
         return $instance;
     }
 
+    /**
+     * Generate a modal for a model.
+     * @param string $type Modal type (edit, create, delete).
+     * @return object
+     */
     public function modal($type)
     {
         $trimmed_item = $this->trimmedModel();
@@ -129,6 +157,13 @@ class CrudApi
         return $modal;
     }
 
+    /**
+     * Get the modals url.
+     *
+     * @param $type
+     *
+     * @return string
+     */
     private function modalUrl($type)
     {
         switch ($type) {
@@ -143,6 +178,13 @@ class CrudApi
         return route('crudapi.'.$action.'.item', $this->model);
     }
 
+    /**
+     * Get the name of the javascript method for a model.
+     *
+     * @param $method
+     *
+     * @return string
+     */
     public function jsMethodName($method)
     {
         // Method == create
@@ -151,6 +193,11 @@ class CrudApi
         return $jsMethod;
     }
 
+    /**
+     * Render fields.
+     * @param $type
+     * @param array $fields
+     */
     public function renderFields($type, $fields = [])
     {
         if (empty($fields)) {
