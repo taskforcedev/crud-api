@@ -326,6 +326,11 @@ class CrudApi
      * @param $method
      * @param $args
      *
+     * @method string getRelatedField
+     * @method string getPrimaryField
+     * @method bool isIdField
+     * @method mixed getModel
+     *
      * @return bool
      */
     public function __call($method, $args)
