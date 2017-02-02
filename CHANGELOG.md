@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Changed
+ - Adjust output of the table headings for _id to show in a more human readable manor.
+
 ## [v1.1.3] - 2017-02-02
 ### Fixed
  - Fix issue with getting related model in field helper.
