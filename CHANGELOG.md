@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [v1.1.4] - 2017-02-02
 ### Changed
  - Adjust output of the table headings for _id to show in a more human readable manor.
 
