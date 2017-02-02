@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.1.2] - 2017-02-02
+### Fixed
+ - Fix issue with form edit method in field helper.
+
 ## [v1.1.1] - 2017-01-26
 ### Fixed
  - Fix crud-api detection of application namespace.
