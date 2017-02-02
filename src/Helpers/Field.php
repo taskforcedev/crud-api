@@ -84,6 +84,14 @@ class Field
         }
     }
 
+    /**
+     * Display the primary field.
+     *
+     * @param $item
+     * @param null $config
+     *
+     * @return mixed
+     */
     public function displayPrimaryField($item, $config = null)
     {
         $field = $this->getPrimaryField($item, $config);
@@ -111,9 +119,11 @@ class Field
                 'name' => $f,
             ];
 
+            $label = $this->humanReadableField($ucF);
+
             $output .= '<fieldset class="form-group">';
 
-            $output .= '<label for="'.$input_attr['id'].'">'.$ucF.'</label>';
+            $output .= '<label for="'.$input_attr['id'].'">'.$label.'</label>';
 
             if ($this->isIdField($f)) {
                 $input_attr['type'] = 'select';
@@ -147,7 +157,9 @@ class Field
 
     /**
      * Render fields into appropriate format for an edit form.
+     *
      * @param array $fields Fields to render.
+     *
      * @return string
      */
     public function formEdit($fields)
@@ -162,9 +174,11 @@ class Field
                 'name' => $f,
             ];
 
+            $label = $this->humanReadableField($ucF);
+
             $output .= '<fieldset class="form-group">';
 
-            $output .= '<label for="'.$input_attr['id'].'">'.$ucF.'</label>';
+            $output .= '<label for="'.$input_attr['id'].'">'.$label.'</label>';
 
             if ($this->isIdField($f)) {
                 $input_attr['type'] = 'select';
@@ -197,7 +211,7 @@ class Field
     /**
      * Return fields as table headings.
      *
-     * @param $fields
+     * @param array $fields Fields to display.
      *
      * @return string
      */
@@ -205,14 +219,21 @@ class Field
     {
         $output = '';
         foreach ($fields as $f) {
-            $field = ucfirst($f);
-            $field = str_replace('_id', ' Id', $field);
+            $field = $this->humanReadableField($f);
             $output .= '<th>'.$field.'</th>';
         }
 
         return $output;
     }
 
+    /**
+     * Output the instances fields into table content format.
+     *
+     * @param array $fields
+     * @param $instance
+     *
+     * @return string
+     */
     public function tableContent($fields, $instance)
     {
         $output = '';
@@ -237,5 +258,22 @@ class Field
         }
 
         return $output;
+    }
+
+    /**
+     * Convert a field internal name into human readable name.
+     *
+     * Example:
+     *  'Organisation_id' becomes 'Organisation Id'.
+     *
+     * @param string $field Field to convert.
+     *
+     * @return mixed|string
+     */
+    public function humanReadableField($field)
+    {
+        $field = str_replace('_id', ' Id', $field);
+        $field = ucwords($field);
+        return $field;
     }
 }
