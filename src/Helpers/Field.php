@@ -174,10 +174,10 @@ class Field
                     $output .= "{$attr}='{$value}'";
                 }
 
-                $relation = $this->getRelatedModel($f);
+                $relation = $this->crudApi->getRelatedModel($f);
                 $output .= '>';
 
-                $output .= $this->getRelatedOptions($relation);
+                $output .= $this->crudApi->getRelatedOptions($relation);
                 $output .= '</select>';
             } else {
                 $input_attr['type'] = 'text';
