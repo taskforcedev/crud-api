@@ -345,9 +345,8 @@ class CrudApi
             case 'getModel':
                 if (isset($args[0])) {
                     return $this->modelHelper->getModel($args[0]);
-                } else {
-                    return $this->modelHelper->getModel();
                 }
+                return $this->modelHelper->getModel();
             default:
                 break;
         }
