@@ -230,8 +230,7 @@ class CrudApi
             }
             break;
         default:
-            return;
-                break;
+            break;
         }
 
         echo $output;
@@ -249,9 +248,7 @@ class CrudApi
         if (!method_exists($relation, 'toOptions')) {
             $relationItems = $relation::all();
             foreach ($relationItems as $item) {
-                if (!isset($item->name)) {
-                    // Error - there is no toOptions or name property.
-                } else {
+                if (isset($item->name)) {
                     $output .= '<option value="'.$item->id.'">'.$item->name.'</option>';
                 }
             }
@@ -312,10 +309,8 @@ class CrudApi
                 break;
         case 'Taskforcedev\\CrudApi\\Helpers\\CrudApi':
             return false;
-                break;
         default:
             return $field->name;
-                break;
         }
     }
 
