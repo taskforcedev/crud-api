@@ -11,8 +11,8 @@ We have tested the package in multiple scenarios and are comfortable using it in
 
 <table>
 <tbody>
-<tr><td>Laravel 5.3 / CrudAPI 1.0.x</td><td>[![Build Status](https://travis-ci.org/package-testing/laravel-53-crudapi.svg?branch=master)](https://travis-ci.org/package-testing/laravel-53-crudapi)</td></tr>
-<tr><td>Laravel 5.4 / CrudAPI 1.1.x</td><td>[![Build Status](https://travis-ci.org/package-testing/laravel-54-crudapi.svg?branch=master)](https://travis-ci.org/package-testing/laravel-54-crudapi)</td></tr>
+<tr><td>Laravel 5.3 / CrudAPI 1.0.x</td><td><a href="https://travis-ci.org/package-testing/laravel-53-crudapi"><img src="https://travis-ci.org/package-testing/laravel-53-crudapi.svg?branch=master" /></a></td></tr>
+<tr><td>Laravel 5.4 / CrudAPI 1.1.x</td><td><a href="https://travis-ci.org/package-testing/laravel-54-crudapi"><img src="https://travis-ci.org/package-testing/laravel-54-crudapi.svg?branch=master" /></a></td></tr>
 </tbody>
 </table>
 
