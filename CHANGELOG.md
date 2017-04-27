@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added
+ - Add a CrudAPI admin dashboard.
+
 ## [v1.0.5] - 2017-02-01
 ### Changed
  - Fix version of laravel support to 1.0.* for laravel 5.3 support.
