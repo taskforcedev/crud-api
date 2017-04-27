@@ -7,6 +7,7 @@ Route::group(
                 Route::post('create/{model}', ['as' => 'crudapi.create.item', 'uses' => 'AdminController@store']);
                 Route::patch('update/{model}', ['as' => 'crudapi.update.item', 'uses' => 'AdminController@update']);
                 Route::delete('delete/{model}', ['as' => 'crudapi.delete.item', 'uses' => 'AdminController@delete']);
+                Route::get('CrudAPI', ['as' => 'crudapi.dashboard', 'uses' => 'CrudApiController@index']);
                 Route::get('{model}', ['as' => 'crudapi.admin.model', 'uses' => 'AdminController@index']);
             }
         );
