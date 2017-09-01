@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.1.7] - 2017-09-01
+### Fixed
+- Fix composer.json
+
+## [v1.1.6] - 2017-09-01
+### Added
+- Add Package autodiscovery for Laravel 5.5.
+
 ## [v1.1.5] - 2017-02-02
 ### Changed
  - Refactor previous change into reusable function and reuse in appropriate places.
