@@ -14,6 +14,7 @@ We have tested the package in multiple scenarios and are comfortable using it in
 <tbody>
 <tr><td>Laravel 5.3 / CrudAPI 1.0.x</td><td><a href="https://travis-ci.org/package-testing/laravel-53-crudapi"><img src="https://travis-ci.org/package-testing/laravel-53-crudapi.svg?branch=master" /></a></td></tr>
 <tr><td>Laravel 5.4 / CrudAPI 1.1.x</td><td><a href="https://travis-ci.org/package-testing/laravel-54-crudapi"><img src="https://travis-ci.org/package-testing/laravel-54-crudapi.svg?branch=master" /></a></td></tr>
+    <tr><td>Laravel 5.5 / CrudAPI 1.1.x</td><td></td></tr>
 </tbody>
 </table>
 
@@ -53,6 +54,12 @@ Once installed add the service provider in your laravels config/app.php.
 
         Taskforcedev\CrudApi\ServiceProvider::class,
     ]
+    
+Laravel 5.5
+
+    "require": {
+        "taskforcedev/crud-api": "1.1.*"
+    }
 
 If you wish to use your own layout in the admin api then follow the instructions from https://github.com/taskforcedev/laravel-support to publish the taskforce-support config and set the layout name there.
 
