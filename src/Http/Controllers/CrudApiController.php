@@ -15,13 +15,18 @@ use Illuminate\Console\DetectsApplicationNamespace;
 class CrudApiController extends Controller
 {
     public $models;
+
     public function index()
     {
-        $data = $this->buildData();
-        $this->loadModels();
-        if (!empty($this->models)) {
-            $data['models'] = $this->models;
-            return view('crudapi::admin.dashboard', $data);
+        if (config('app.debug')) {
+            $data = $this->buildData();
+            $this->loadModels();
+            if (!empty($this->models)) {
+                $data['models'] = $this->models;
+                return view('crudapi::admin.dashboard', $data);
+            }
+        } else {
+            return redirect('/');
         }
     }
     public function loadModels()
