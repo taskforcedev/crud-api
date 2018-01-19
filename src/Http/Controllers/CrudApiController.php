@@ -26,14 +26,25 @@ class CrudApiController extends Controller
     }
     public function loadModels()
     {
-        $this->loadAppModels();
+        $this->loadAppFolder();
+        $this->loadModelsFolder();
     }
-    public function loadAppModels()
+    public function loadAppFolder()
     {
         $appFolder = app_path();
         $namespace = $this->getAppNamespace();
         $this->getPhpFiles($appFolder, $namespace);
     }
+
+    public function loadModelsFolder()
+    {
+        $folder = app_path('Models');
+        if (file_exists($folder)) {
+            $namespace = $this->getAppNamespace();
+            $this->getPhpFiles($folder, $namespace . 'Models\\');
+        }
+    }
+
     public function getPhpFiles($dir, $namespace)
     {
         $user = Auth::user();
@@ -48,12 +59,14 @@ class CrudApiController extends Controller
                             if ($model !== 'Model') {
                                 $qualifiedModel = $namespace . $model;
                                 $crudApiLink = route('crudapi.admin.model', $model);
-                                $status = 'Unknown';
-                                if ($user->can('create', $qualifiedModel)) {
-                                    $status = 'Policy: Allows';
-                                } else {
-                                    $status = 'Policy: Denies';
-                                }
+                                $status = [];
+
+                                // Check if user can perform crud actions
+                                $status['create'] = $user->can('create', $qualifiedModel);
+                                $status['read'] = $user->can('view', $qualifiedModel);
+                                $status['update'] = $user->can('update', $qualifiedModel);
+                                $status['delete'] = $user->can('delete', $qualifiedModel);
+
                                 $this->models[] = [
                                     'namespace' => $namespace,
                                     'model' => $model,
