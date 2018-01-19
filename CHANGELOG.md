@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Changed
+- Add information from models folder into CrudAPI dashboard.
+- Show more detailed policy data (create, read, update and delete columns).
+- Only show model policy status if app debug is true.
+
 ## [v1.1.7] - 2017-09-01
 ### Fixed
 - Fix composer.json
