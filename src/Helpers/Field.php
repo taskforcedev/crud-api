@@ -196,9 +196,9 @@ class Field
             } else {
                 $input_attr['type'] = 'text';
 
-                $output .= '<input ';
+                $output .= '<input';
                 foreach ($input_attr as $attr => $value) {
-                    $output .= "{$attr}='{$value}'";
+                    $output .= " {$attr}='{$value}'";
                 }
                 $output .= '>';
             }
