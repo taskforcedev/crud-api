@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v1.1.9] - 2018-02-06
+### Fixed
+- Fix form edit generated html.
+
 ## [v1.1.8] - 2018-02-06
 ### Changed
 - Add information from models folder into CrudAPI dashboard.
